@@ -8,8 +8,8 @@ def info(stdscr):
 
 
 def dashport(stdscr):
-    keymap = {"q": "quit"}
-    app = Dashport(stdscr, keys=keymap, minimum=[10, 10])
+    keymap = {"q": "quit", "Q": "quit"}
+    app = Dashport(stdscr, keys=keymap)
     app.print("Press 'q' to exit.")
     app.print("")
     app.print("Printing multiple lines is as easy as Python's standard print.")
