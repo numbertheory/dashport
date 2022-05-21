@@ -18,5 +18,5 @@ setup(
     author_email='jetcheber@gmail.com',
     url='https://github.com/numbertheory/dashport',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('tests', 'docs', 'examples'))
 )
