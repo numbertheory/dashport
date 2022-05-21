@@ -4,7 +4,8 @@ from dashport.dash import Dashport
 
 
 def dashport(stdscr):
-    app = Dashport(stdscr)
+    keymap = {"q": "quit"}
+    app = Dashport(stdscr, keys=keymap)
     while True:
         app.refresh()
 
