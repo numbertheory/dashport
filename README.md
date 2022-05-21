@@ -1,3 +1,3 @@
 # dashport
 
-Making curses easier to handle.
+Dashport - An easy and safe way to use curses
