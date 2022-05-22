@@ -55,9 +55,19 @@ class Dashport():
         self.screen.refresh()
 
     def print(self, content="", **kwargs):
+        """
+        Print behaves like a TTY print function. At the end of the content
+        string the cursor goes to the next line by default.
+        """
         set_y = kwargs.get("y", self.cursor_y)
         set_x = kwargs.get("x", self.cursor_x)
         ending = kwargs.get("end", "\n")
         self.screen.addstr(set_y, set_x, content)
         if ending == "\n":
             self.cursor_y += 1
+
+    def insch(self, content="", **kwargs):
+        """
+        Add a character to the current cursor position of the screen.
+        """
+        self.screen.insch(self.cursor_y, self.cursor_x, content)

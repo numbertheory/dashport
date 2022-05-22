@@ -15,9 +15,8 @@ def info(stdscr):
 def dashport(stdscr):
     app = Dashport(stdscr)
 
-    # This loop refreshes the screen. Don't put any other commands
-    # in this loop, instead add to the `app` object above, and let
-    # this loop run.
+    # This loop refreshes the screen. Put commands in this loop if you
+    # want them to be refreshed every millisecond.
     while True:
         app.refresh()
 
@@ -38,7 +37,7 @@ def dashport(stdscr):
         app.refresh()
 ```
 
-The coordinate system in Dashport is `x` refers to the horizontal position (the column on the screen), and y refers to the (the row on the screen). 
+The coordinate system in Dashport is `x` refers to the horizontal position (the column on the screen), and y refers to the (the row on the screen).
 
 
 ## Binding keys to the application
