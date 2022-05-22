@@ -66,8 +66,10 @@ class Dashport():
         if ending == "\n":
             self.cursor_y += 1
 
-    def insch(self, content="", **kwargs):
+    def insch(self, char="", **kwargs):
         """
         Add a character to the current cursor position of the screen.
+        Best used when you don't want the cursor to advance right when
+        a character is placed.
         """
-        self.screen.insch(self.cursor_y, self.cursor_x, content)
+        self.screen.insch(self.cursor_y, self.cursor_x, char)
