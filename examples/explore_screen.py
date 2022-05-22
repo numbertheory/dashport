@@ -45,7 +45,8 @@ def dashport(stdscr):
     app.add_control("KEY_LEFT", move_left)
     app.add_control("KEY_RIGHT", move_right)
     while True:
-        app.insch("X")
+        app.insstr("X")
+        app.screen.addstr(app.rows - 1, 0, "Position: {} {}".format(app.cursor_x, app.cursor_y))
         app.refresh()
 
 

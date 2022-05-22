@@ -63,13 +63,34 @@ class Dashport():
         set_x = kwargs.get("x", self.cursor_x)
         ending = kwargs.get("end", "\n")
         self.screen.addstr(set_y, set_x, content)
-        if ending == "\n":
+        if ending == "\n" and (
+            set_y == self.cursor_y and
+                set_x == self.cursor_x):
             self.cursor_y += 1
 
-    def insch(self, char="", **kwargs):
+    def insstr(self, char="", x=None, y=None):
         """
-        Add a character to the current cursor position of the screen.
+        Add a character to the cursor position of the screen [x, y].
         Best used when you don't want the cursor to advance right when
         a character is placed.
+
+        If no cursor position is specified, the current cursor position
+        is used.
         """
-        self.screen.insch(self.cursor_y, self.cursor_x, char)
+        if not x:
+            x = self.cursor_x
+        if not y:
+            y = self.cursor_y
+        self.screen.insstr(y, x, char)
+
+    def addstr(self, char="", x=None, y=None):
+        """
+        Adds a string to the location specified by x, y coordinates. Similar
+        to this class's print method, but with no shifting of content already
+        on the screen, and the cursor position does not move.
+        """
+        if not x:
+            x = self.cursor_x
+        if not y:
+            y = self.cursor_y
+        self.screen.addstr(y, x, char)
