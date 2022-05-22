@@ -12,7 +12,7 @@ def quit(*args):
 
 
 def add_text(app):
-    app.print("hello", x=16, y=13)
+    app.print("hello", x=0, y=13)
 
 
 def dashport(stdscr):

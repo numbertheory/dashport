@@ -26,12 +26,27 @@ if __name__ == '__main__':
     wrap(dashport, info)
 ```
 
-## Binding keys to the application
+## Printing Statements
 
-The first thing we probably want to do is make a quit command so that we can quit the program without having to press Ctrl+C.  To do that, use the add_control method in the dashport function:
+Dashport contains its own print function, which is separate from Python's `print` command. To use the method, just add the method to the dashport function, as shown below.
 
 ```
-def quit():
+def dashport(stdscr):
+    app = Dashport(stdscr)
+    app.print("Some text is on the screen!", x=0, y=10)
+    while True:
+        app.refresh()
+```
+
+The coordinate system in Dashport is `x` refers to the horizontal position (the column on the screen), and y refers to the (the row on the screen). 
+
+
+## Binding keys to the application
+
+We probably want to make a quit command so that we can quit the program without having to press Ctrl+C.  To do that, use the add_control method in the dashport function:
+
+```
+def quit(*args):
     exit(0)
 
 def dashport(stdscr):
@@ -39,6 +54,18 @@ def dashport(stdscr):
     app.add_control("q", quit, case_sensitive=False)
     ...
 ```
-The first argument is a string, the key that is being bound. The second argument is the function itself, which will be added to the `app.controls` dict of the app we've defined.
+The first argument is a string, the key that is being bound. The second argument is the function itself, which will be added to the `app.controls` dict of the app we've defined. And finally, you can set an optional `case_sensitive` argument to `False`, if you would like both upper and lowercase versions of the key pressed to be bound to the same function.
 
-This will bind the `q` key to the quit function, which you can define yourself outside of the dashport function. You can also import functions from other python files or libraries, and bind those functions to the
+In this example, the `q` key is bound to the quit function, which you can define yourself outside of the dashport function. You can also import functions from other python files or libraries, and bind those functions to other keys. Even if a function takes no arguments, the function still needs `*args` set. If you want your function to interact with the screen and have access to other Dashport functions, pass in "app" into the function:
+
+In this example, the add_message function is bound to the `k` key. When pressed, the app will display the new message on the screen.
+
+```
+def add_message(app):
+    app.print("A new message appears!")
+
+def dashport(stdscr):
+    app = Dashport(stdscr)
+    app.add_control("k", add_message)
+    ...
+```
