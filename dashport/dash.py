@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 import curses
-import dashport.commands as commands
 
 
 class Info():
