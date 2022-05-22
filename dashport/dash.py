@@ -83,14 +83,10 @@ class Dashport():
             y = self.cursor_y
         self.screen.insstr(y, x, char)
 
-    def addstr(self, char="", x=None, y=None):
+    def addstr(self, content, x, y):
         """
         Adds a string to the location specified by x, y coordinates. Similar
         to this class's print method, but with no shifting of content already
         on the screen, and the cursor position does not move.
         """
-        if not x:
-            x = self.cursor_x
-        if not y:
-            y = self.cursor_y
-        self.screen.addstr(y, x, char)
+        self.screen.addstr(y, x, content)
