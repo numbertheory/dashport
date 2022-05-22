@@ -27,6 +27,7 @@ def dashport(stdscr):
     app.print("Even though this line comes after the line located at 15, 10,"
               " the y-coordinate defaults to the next line, from the previous"
               " line which contained no location.")
+    app.screen.addstr(9, 20, "X")
     while True:
         app.refresh()
 

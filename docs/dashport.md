@@ -74,3 +74,16 @@ def dashport(stdscr):
     app.add_control("k", add_message)
     ...
 ```
+
+## Native curses methods
+
+Because this is a wrapper, and a work in progress, not all functions in curses will be implemented, but you may still use curses methods in your applications set up by Dashport. The `screen` attribute in the Dashport object is just defined as the curses object, so you can use [any documented curses method](https://docs.python.org/3/library/curses.html) with it.
+
+In the example below, `addstr` is being used, but it's not the `addstr` method in Dashport, it's the `addstr` method native to curses, and so it takes different arguments.
+
+```
+def dashport(stdscr):
+    app = Dashport(stdscr)
+    app.screen.addstr(10, 10, "k")
+    ...
+```
