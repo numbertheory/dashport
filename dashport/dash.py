@@ -21,12 +21,20 @@ class Info():
 class Dashport():
     def __init__(self, stdscr, **kwargs):
         self.screen = stdscr
-        self.cursor = self.curs_set(kwargs.get("cursor"))
+        self.cursor = self.curs_set(kwargs.get("cursor", 0))
         self.rows, self.cols = self.screen.getmaxyx()
         self.window = curses.newwin(self.rows + 1, self.cols)
         self.controls = dict()
         self.cursor_x = 0
         self.cursor_y = 0
+        curses.start_color()
+        curses.use_default_colors()
+        # Default Background
+        color_index = 1
+        for k in range(-1, 34):
+            for j in range(0, 8):
+                curses.init_pair(color_index, j, k)
+                color_index += 1
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
@@ -58,7 +66,7 @@ class Dashport():
         self.control_keys()
         self.screen.refresh()
 
-    def print(self, content="", **kwargs):
+    def print(self, content="",  color=7, **kwargs):
         """
         Print behaves like a TTY print function. At the end of the content
         string the cursor goes to the next line by default.
@@ -66,13 +74,13 @@ class Dashport():
         set_y = kwargs.get("y", self.cursor_y)
         set_x = kwargs.get("x", self.cursor_x)
         ending = kwargs.get("end", "\n")
-        self.screen.addstr(set_y, set_x, content)
+        self.screen.addstr(set_y, set_x, content, curses.color_pair(color))
         if ending == "\n" and (
             set_y == self.cursor_y and
                 set_x == self.cursor_x):
             self.cursor_y += 1
 
-    def insstr(self, char="", x=None, y=None):
+    def insstr(self, char="", x=None, y=None, color=7):
         """
         Add a character to the cursor position of the screen [x, y].
         Best used when you don't want the cursor to advance right when
@@ -85,12 +93,12 @@ class Dashport():
             x = self.cursor_x
         if not y:
             y = self.cursor_y
-        self.screen.insstr(y, x, char)
+        self.screen.insstr(y, x, char, curses.color_pair(color))
 
-    def addstr(self, content, x, y):
+    def addstr(self, content, x, y, color=7):
         """
         Adds a string to the location specified by x, y coordinates. Similar
         to this class's print method, but with no shifting of content already
         on the screen, and the cursor position does not move.
         """
-        self.screen.addstr(y, x, content)
+        self.screen.addstr(y, x, content, curses.color_pair(color))

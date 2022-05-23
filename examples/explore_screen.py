@@ -45,7 +45,7 @@ def dashport(stdscr):
     while True:
         app.insstr("X")
         app.addstr("Position: {} {}".format(app.cursor_x, app.cursor_y),
-                   x=0, y=app.rows - 1)
+                   x=0, y=app.rows - 1, color=4)
         app.refresh()
 
 
