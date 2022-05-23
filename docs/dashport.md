@@ -25,6 +25,17 @@ if __name__ == '__main__':
     wrap(dashport, info)
 ```
 
+## Dashport App Options
+
+When making a dashport app, you can hide the cursor, by setting the cursor to `False`. If you need to set the cursor back to visible during the program, use the `curs_set` method to bring it back.
+
+```
+def dashport(stdscr):
+    app = Dashport(stdscr, cursor=False)
+    # bring the cursor back
+    app.curs_set(True)
+```
+
 ## Printing Statements
 
 Dashport contains its own print function, which is separate from Python's `print` command. To use the method, just add the method to the dashport function, as shown below.
