@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from dashport.dash import Dashport, Info
 from dashport.run import wrap
-import curses
 
 
 def info(stdscr):
@@ -37,8 +36,7 @@ def move_right(app):
 
 
 def dashport(stdscr):
-    app = Dashport(stdscr)
-    curses.curs_set(0)
+    app = Dashport(stdscr, cursor=False)
     app.add_control("q", quit)
     app.add_control("KEY_UP", move_up)
     app.add_control("KEY_DOWN", move_down)

@@ -21,11 +21,15 @@ class Info():
 class Dashport():
     def __init__(self, stdscr, **kwargs):
         self.screen = stdscr
+        self.cursor = self.curs_set(kwargs.get("cursor"))
         self.rows, self.cols = self.screen.getmaxyx()
         self.window = curses.newwin(self.rows + 1, self.cols)
         self.controls = dict()
         self.cursor_x = 0
         self.cursor_y = 0
+
+    def curs_set(self, set_cursor):
+        curses.curs_set(set_cursor)
 
     def add_control(self, control_key, func, case_sensitive=True):
         """
