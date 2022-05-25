@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
 Use this table to find the color scheme appropriate for your app:
 
-![color palette for dashport](docs/color_palette.png?raw=true "Dashport Color Palette")
+![color palette for dashport](color_palette.png?raw=true "Dashport Color Palette")
