@@ -112,9 +112,9 @@ class Dashport():
         """
         Draw a filled in rectangle on the screen.
         """
-        for j in range(0, height):
-            for i in range(0, width):
-                self.screen.insstr(j, i, " ", cpi(self.color_default, color))
+        for j in range(y, y + height):
+            for i in range(x, x + width):
+                self.screen.addstr(j, i, " ", cpi(self.color_default, color))
 
     def background(self, color):
         """

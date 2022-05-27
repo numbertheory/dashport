@@ -20,6 +20,7 @@ def dashport(stdscr):
     app.background(color=109)
     # This text will show because it comes after the background.
     app.print("printing on top of text")
+    app.rectangle(10, 10, 12, 12, color=98)
     while True:
         app.refresh()
 
