@@ -12,7 +12,7 @@ def info(stdscr):
 
 
 def dashport(stdscr):
-    app = Dashport(stdscr)
+    app = Dashport(stdscr, color_default=9)
     app.add_control("q", quit, case_sensitive=False)
     for j in range(1, 33):
         app.print(f"Color {str(j)}", x=0, color=j)
