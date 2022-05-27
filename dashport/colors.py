@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
+import curses
+
+
 def color_defs():
-    return {"black": 0, "blue": 4, "cyan": 6,
-            "green": 2, "magenta": 5, "red": 1,
-            "white": 7, "yellow": 3}
+    color_index = 1
+    for k in range(-1, 34):
+        for j in range(0, 8):
+            curses.init_pair(color_index, j, k)
+            color_index += 1

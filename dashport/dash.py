@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import curses
+import dashport.colors
 
 
 class Info():
@@ -29,12 +30,7 @@ class Dashport():
         self.cursor_y = 0
         curses.start_color()
         curses.use_default_colors()
-        # Default Background
-        color_index = 1
-        for k in range(-1, 34):
-            for j in range(0, 8):
-                curses.init_pair(color_index, j, k)
-                color_index += 1
+        dashport.colors.color_defs()
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
