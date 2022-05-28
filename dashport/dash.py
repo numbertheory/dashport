@@ -90,7 +90,7 @@ class Dashport():
         Print behaves like a TTY print function. At the end of the content
         string the cursor goes to the next line by default.
         """
-        set_y = kwargs.get("y", self.cursor_y)
+        set_y = kwargs.get("y", self.cursor_y) + self.title_offset
         set_x = kwargs.get("x", self.cursor_x)
         panel = kwargs.get("panel")
         ending = kwargs.get("end", "\n")
@@ -127,7 +127,7 @@ class Dashport():
         if not x:
             x = self.cursor_x
         if not y:
-            y = self.cursor_y
+            y = self.cursor_y + self.title_offset
         if not color:
             color = self.color_default
         self.screen.insstr(y, x, char, cpi(self.color_default, color))
@@ -140,13 +140,13 @@ class Dashport():
         """
         if not color:
             color = self.color_default
-        self.screen.addstr(y, x, content, cpi(self.color_default, color))
+        self.screen.addstr(y + self.title_offset, x, content, cpi(self.color_default, color))
 
     def rectangle(self, x, y, width, height, color=None):
         """
         Draw a filled in rectangle on the screen.
         """
-        for j in range(y, y + height):
+        for j in range(y + self.title_offset, y + height - self.title_bottom_offset):
             for i in range(x, x + width):
                 self.screen.addstr(j, i, " ", cpi(self.color_default, color))
 
@@ -154,7 +154,7 @@ class Dashport():
         """
         Fill the background with a color
         """
-        for j in range(0, self.rows):
+        for j in range(0 + self.title_offset, self.rows - self.title_bottom_offset):
             for i in range(0, self.cols):
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
 

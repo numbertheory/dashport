@@ -12,6 +12,7 @@ def quit(app):
 
 
 def four_way_split(app):
+    app.screen.clear()
     app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
                        "Q to quit.",
                   align="bottom", color=256)
@@ -31,6 +32,7 @@ def four_way_split(app):
 
 
 def three_way_split(app):
+    app.screen.clear()
     app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
                        "Q to quit.", color=256)
     app.split_screen_three_vert(borders=True, long_side="right",
