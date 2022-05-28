@@ -29,6 +29,8 @@ Other available splits are `split_screen_columns`, which divides the screen in t
 
 # Three way splits
 
-Splitting the screen in three ways means that you can determine which side of the screen the longer panel will be on, and what the width of that panel will be.
+Splitting the screen in three ways means that you can determine which side of the screen the longer panel will be on (top or bottom for horizontal splits and left or right for vertical splits), and what the width of that panel will be.
 
-When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](examples/split_screen_three_vert.py) for an example.
+When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to set the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](examples/split_screen_three_vert.py) for an example.
+
+When using `split_screen_three_horizontal`, set `long_side` to `top` or `bottom` to set the longer panel to the top or bottom, and then `long_side_height` to set the height of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_horizontal.py](examples/split_screen_three_horizontal.py) for an example.
