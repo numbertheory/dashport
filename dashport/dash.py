@@ -3,7 +3,7 @@ import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
 from dashport.colors import color_defs
-from dashport import layout
+from dashport import layout, widgets
 
 
 class Info():
@@ -25,6 +25,7 @@ class Info():
 class Dashport():
     def __init__(self, stdscr, **kwargs):
         self.screen = stdscr
+        self.title_bottom_offset = 0
         self.cursor = self.curs_set(kwargs.get("cursor", 0))
         self.rows, self.cols = self.screen.getmaxyx()
         self.window = curses.newwin(self.rows + 1, self.cols)
@@ -34,12 +35,16 @@ class Dashport():
         self.color_default = kwargs.get("color_default", 8)
         self.panels = []
         self.panel_dimensions = []
+        self.title_offset = 0
         curses.start_color()
         curses.use_default_colors()
         color_defs()
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
+
+    def title_bar(self, text, align="top"):
+        widgets.title_bar(self, text=text, align=align)
 
     def add_control(self, control_key, func, case_sensitive=True):
         """
@@ -65,7 +70,7 @@ class Dashport():
                 self.controls[key_pressed](self)
 
     def panel(self, height, length, y, x, border=False):
-        win = curses.newwin(height, length, y, x)
+        win = curses.newwin(height, length, y + self.title_offset, x)
         if border:
             win.box()
         panel = curses.panel.new_panel(win)

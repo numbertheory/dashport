@@ -52,7 +52,7 @@ def three_panels_vert(app, borders=False, long_side="right",
     if long_side == "right":
         win1, panel1 = app.panel(split_rows, app.cols - long_side_width,
                                  0, 0, borders)
-        win2, panel2 = app.panel(app.rows, long_side_width,
+        win2, panel2 = app.panel(app.rows - app.title_offset, long_side_width,
                                  0, app.cols - long_side_width, borders)
         win3, panel3 = app.panel(split_rows, app.cols - long_side_width,
                                  split_rows, 0, borders)
