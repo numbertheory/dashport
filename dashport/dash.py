@@ -43,8 +43,11 @@ class Dashport():
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
 
-    def title_bar(self, text, align="top"):
-        widgets.title_bar(self, text=text, align=align)
+    def title_bar(self, **kwargs):
+        text = kwargs.get("text", "")
+        align = kwargs.get("align", "top")
+        color = kwargs.get("color", self.color_default)
+        widgets.title_bar(self, text=text, align=align, color=color)
 
     def add_control(self, control_key, func, case_sensitive=True):
         """
