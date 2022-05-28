@@ -3,7 +3,7 @@ import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
 from dashport.colors import color_defs
-from dashport.layout import split_screen_columns, split_screen_rows
+from dashport import layout
 
 
 class Info():
@@ -87,18 +87,24 @@ class Dashport():
         ending = kwargs.get("end", "\n")
         if not color:
             color = self.color_default
-        if not panel:
+        if not isinstance(panel, int):
             self.screen.addstr(set_y, set_x, content,
                                cpi(self.color_default, color))
+            if ending == "\n" and (
+                set_y == self.cursor_y and
+                    set_x == self.cursor_x):
+                self.cursor_y += 1
         else:
-            self.panels[panel].addstr(set_y, set_x, content,
+            panel_y = kwargs.get("y", self.panel_coords[panel][1])
+            panel_x = kwargs.get("x", self.panel_coords[panel][0])
+            self.panels[panel].addstr(panel_y, panel_x, content,
                                       cpi(self.color_default, color))
             curses.panel.update_panels()
             self.screen.refresh()
-        if ending == "\n" and (
-            set_y == self.cursor_y and
-                set_x == self.cursor_x):
-            self.cursor_y += 1
+            if ending == "\n" and (
+                panel_y == self.panel_coords[panel][1] and
+                    panel_x == self.panel_coords[panel][0]):
+                self.panel_coords[panel][1] += 1
 
     def insstr(self, char="", x=None, y=None, color=None):
         """
@@ -147,10 +153,16 @@ class Dashport():
         """
         Splits the screen into two vertical panels
         """
-        self.panels = split_screen_columns(self, borders)
+        self.panels = layout.split_screen_columns(self, borders)
 
     def split_screen_rows(self, borders):
         """
         Splits the screen into two horizontal panels
         """
-        self.panels = split_screen_rows(self, borders)
+        self.panels = layout.split_screen_rows(self, borders)
+
+    def split_screen_quad(self, borders):
+        """
+        Splits the screen into four quadrant panels
+        """
+        self.panels = layout.quadrants(self, borders)
