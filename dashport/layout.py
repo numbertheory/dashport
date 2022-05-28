@@ -9,7 +9,7 @@ def split_screen_columns(app, borders=False):
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0]]
-    app.panel_dimensions = [[win1.getmaxyx()], [win2.getmaxyx()]]
+    app.panel_dimensions = [win1.getmaxyx(), win2.getmaxyx()]
     return [win1, win2, panel1, panel2]
 
 
@@ -20,7 +20,7 @@ def split_screen_rows(app, borders=False):
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0]]
-    app.panel_dimensions = [[win1.getmaxyx()], [win2.getmaxyx()]]
+    app.panel_dimensions = [win1.getmaxyx(), win2.getmaxyx()]
     return [win1, win2, panel1, panel2]
 
 
@@ -38,6 +38,6 @@ def quadrants(app, borders=False):
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0], [0, 0], [0, 0]]
-    app.panel_dimensions = [[win1.getmaxyx()], [win2.getmaxyx()],
-                            [win3.getmaxyx()], [win4.getmaxyx()]]
+    app.panel_dimensions = [win1.getmaxyx(), win2.getmaxyx(),
+                            win3.getmaxyx(), win4.getmaxyx()]
     return [win1, win2, win3, win4, panel1, panel2, panel3, panel4]

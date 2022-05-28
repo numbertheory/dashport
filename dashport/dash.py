@@ -33,6 +33,7 @@ class Dashport():
         self.cursor_y = 0
         self.color_default = kwargs.get("color_default", 8)
         self.panels = []
+        self.panel_dimensions = []
         curses.start_color()
         curses.use_default_colors()
         color_defs()
