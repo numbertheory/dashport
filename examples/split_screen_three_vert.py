@@ -14,7 +14,8 @@ def quit(app):
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=176)
     app.add_control("q", quit, case_sensitive=False)
-    app.split_screen_three(borders=True)
+    app.split_screen_three_vert(borders=True, long_side="right",
+                                long_side_width=100)
     while True:
         app.refresh()
 
