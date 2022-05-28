@@ -150,20 +150,30 @@ class Dashport():
             for i in range(0, self.cols):
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
 
-    def split_screen_columns(self, borders):
+    def split_screen_columns(self, **kwargs):
         """
         Splits the screen into two vertical panels
         """
-        self.panels = layout.split_screen_columns(self, borders)
+        self.panels = layout.split_screen_columns(
+            self, kwargs.get("borders", False))
 
-    def split_screen_rows(self, borders):
+    def split_screen_rows(self, **kwargs):
         """
         Splits the screen into two horizontal panels
         """
-        self.panels = layout.split_screen_rows(self, borders)
+        self.panels = layout.split_screen_rows(
+            self, kwargs.get("borders", False))
 
-    def split_screen_quad(self, borders):
+    def split_screen_quad(self, **kwargs):
         """
         Splits the screen into four quadrant panels
         """
-        self.panels = layout.quadrants(self, borders)
+        self.panels = layout.quadrants(
+            self, kwargs.get("borders", False))
+
+    def split_screen_three(self, **kwargs):
+        """
+        Splits the screen into three panels
+        """
+        self.panels = layout.three_panels_vert(
+            self, kwargs.get("borders", False))
