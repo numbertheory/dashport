@@ -3,7 +3,7 @@ import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
 from dashport.colors import color_defs
-from dashport.layout import split_screen_columns
+from dashport.layout import split_screen_columns, split_screen_rows
 
 
 class Info():
@@ -144,4 +144,13 @@ class Dashport():
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
 
     def split_screen_columns(self, borders):
+        """
+        Splits the screen into two vertical panels
+        """
         self.panels = split_screen_columns(self, borders)
+
+    def split_screen_rows(self, borders):
+        """
+        Splits the screen into two horizontal panels
+        """
+        self.panels = split_screen_rows(self, borders)
