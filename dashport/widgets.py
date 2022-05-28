@@ -1,9 +1,15 @@
 #! /usr/bin/env python3
 
-def title_bar(app, text, align="top"):
+def title_bar(app, **kwargs):
+    align = kwargs.get("align", "top")
+    text = kwargs.get("text", "")
+    color = kwargs.get("color", app.color_default)
     if align == "top":
-        app.print(content=text.ljust(app.cols), x=0, y=0)
+        app.print(content=text.ljust(app.cols), x=0, y=0, color=color)
         app.title_offset = 1
     elif align == "bottom":
-        app.print(content=text.ljust(app.cols - 1), x=0, y=app.rows - 1)
+        app.title_offset = 0
+        app.print(content=text.ljust(app.cols - 1),
+                  x=0, y=app.rows - 1, color=color)
+        app.insstr(" ", x=app.cols - 1, y=app.rows - 1, color=color)
         app.title_bottom_offset = 1

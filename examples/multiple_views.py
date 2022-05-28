@@ -12,7 +12,9 @@ def quit(app):
 
 
 def four_way_split(app):
-    app.title_bar("Press 4 to split 4 ways, 3 to split 3 ways, Q to quit")
+    app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
+                       "Q to quit.",
+                  align="bottom")
     app.split_screen_quad(borders=True)
     app.print("panel 0", panel=0)
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0)
@@ -29,7 +31,8 @@ def four_way_split(app):
 
 
 def three_way_split(app):
-    app.title_bar("Press 4 to split 4 ways, 3 to split 3 ways, Q to quit")
+    app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
+                       "Q to quit.")
     app.split_screen_three_vert(borders=True, long_side="right",
                                 long_side_width=100)
     app.print("panel 0", panel=0)

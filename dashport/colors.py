@@ -11,7 +11,7 @@ def color_defs():
             color_index += 1
 
 
-def color_pair_integer(default, color_int):
+def color_pair_integer(default, color_int=None):
     if not color_int:
         return curses.color_pair(default)
     else:
