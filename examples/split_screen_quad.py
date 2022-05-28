@@ -16,13 +16,13 @@ def dashport(stdscr):
     app.add_control("q", quit, case_sensitive=False)
     app.split_screen_quad(borders=True)
     app.print("panel 0", panel=0)
-    app.print("Second Line", panel=0)
+    app.print(f"{app.panel_dimensions[0]}", panel=0)
     app.print("panel 1", panel=1)
-    app.print("Second Line", panel=1)
+    app.print(f"{app.panel_dimensions[1]}", panel=1)
     app.print("panel 2", panel=2)
-    app.print("Second Line", panel=2)
+    app.print(f"{app.panel_dimensions[2]}", panel=2)
     app.print("panel 3", panel=3)
-    app.print("Second Line", panel=3)
+    app.print(f"{app.panel_dimensions[3]}", panel=3)
     while True:
         app.refresh()
 
