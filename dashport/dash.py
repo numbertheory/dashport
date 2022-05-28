@@ -1,7 +1,9 @@
 #! /usr/bin/env python3
 import curses
+import curses.panel
 from dashport.colors import color_pair_integer as cpi
 from dashport.colors import color_defs
+from dashport.layout import split_screen_columns
 
 
 class Info():
@@ -30,6 +32,7 @@ class Dashport():
         self.cursor_x = 0
         self.cursor_y = 0
         self.color_default = kwargs.get("color_default", 8)
+        self.panels = []
         curses.start_color()
         curses.use_default_colors()
         color_defs()
@@ -60,7 +63,16 @@ class Dashport():
             if key_pressed in self.controls:
                 self.controls[key_pressed](self)
 
+    def panel(self, height, length, y, x, border=False):
+        win = curses.newwin(height, length, y, x)
+        if border:
+            win.box()
+        panel = curses.panel.new_panel(win)
+        curses.panel.update_panels()
+        return win, panel
+
     def refresh(self):
+        curses.panel.update_panels()
         self.control_keys()
         self.screen.refresh()
 
@@ -71,11 +83,18 @@ class Dashport():
         """
         set_y = kwargs.get("y", self.cursor_y)
         set_x = kwargs.get("x", self.cursor_x)
+        panel = kwargs.get("panel")
         ending = kwargs.get("end", "\n")
         if not color:
             color = self.color_default
-        self.screen.addstr(set_y, set_x, content,
-                           cpi(self.color_default, color))
+        if not panel:
+            self.screen.addstr(set_y, set_x, content,
+                               cpi(self.color_default, color))
+        else:
+            self.panels[panel].addstr(set_y, set_x, content,
+                                      cpi(self.color_default, color))
+            curses.panel.update_panels()
+            self.screen.refresh()
         if ending == "\n" and (
             set_y == self.cursor_y and
                 set_x == self.cursor_x):
@@ -123,3 +142,6 @@ class Dashport():
         for j in range(0, self.rows):
             for i in range(0, self.cols):
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
+
+    def split_screen_columns(self, borders):
+        self.panels = split_screen_columns(self, borders)
