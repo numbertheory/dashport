@@ -21,9 +21,9 @@ def dashport(stdscr):
     app.add_control("KEY_DOWN", scroll_down)
     rows, cols = app.screen.getmaxyx()
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
-                  align="bottom", color=256)
-    for i in range(0, app.rows - 1):
-        app.print(content=f"Line: {i}")
+                  align="top", color=256)
+    for i in range(0, app.rows + 56):
+        app.print(content=f"Line: {i} {app.cursor_y}")
 
     while True:
         app.refresh()

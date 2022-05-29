@@ -36,6 +36,8 @@ class Dashport():
         self.panels = []
         self.panel_dimensions = []
         self.title_offset = 0
+        self.top_title_row = None
+        self.bottom_title_row = self.rows - 1
         self.scroll_screen = False
         if kwargs.get("scroll"):
             self.screen.scrollok(True)
@@ -99,6 +101,11 @@ class Dashport():
         set_x = kwargs.get("x", self.cursor_x)
         panel = kwargs.get("panel")
         ending = kwargs.get("end", "\n")
+        if set_y == self.top_title_row:
+            set_y += 1
+        if set_y == self.bottom_title_row and self.scroll_screen:
+            self.screen.scroll(1)
+            ending = ""
         if not color:
             color = self.color_default
         if not isinstance(panel, int):

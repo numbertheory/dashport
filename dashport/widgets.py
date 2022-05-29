@@ -8,10 +8,12 @@ def title_bar(app, **kwargs):
         app.print(content=text.ljust(app.cols), x=0, y=0, color=color, end="")
         app.title_offset = 1
         app.screen.setscrreg(1, app.rows - 1)
+        app.top_title_row = 0
     elif align == "bottom":
-        app.title_offset = 0
-        app.print(content=text.ljust(app.cols - 1),
-                  x=0, y=app.rows - 1, color=color)
-        app.insstr(" ", x=app.cols - 1, y=app.rows - 1, color=color)
+        app.insstr(text.ljust(app.cols - 1),
+                   x=0, y=app.rows - app.title_offset - 1, color=color)
+        app.insstr(" ", x=app.cols - 1, y=app.rows - app.title_offset - 1,
+                   color=color)
+        app.bottom_title_row = app.rows - app.title_offset - 2
         app.title_bottom_offset = 1
-        app.screen.setscrreg(app.title_offset, app.rows - 2)
+        app.screen.setscrreg(0, app.rows - 2)
