@@ -36,8 +36,11 @@ class Dashport():
         self.panels = []
         self.panel_dimensions = []
         self.title_offset = 0
+        self.scroll_screen = False
         if kwargs.get("scroll"):
             self.screen.scrollok(True)
+            self.scroll_screen = True
+        self.screen.setscrreg(0, self.rows - 1)
         curses.start_color()
         curses.use_default_colors()
         color_defs()

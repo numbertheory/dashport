@@ -22,7 +22,6 @@ def dashport(stdscr):
     rows, cols = app.screen.getmaxyx()
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
                   align="top", color=256)
-    app.screen.setscrreg(1, app.rows - 1)
     for i in range(0, app.rows - 1):
         app.print(content=f"Line: {i}")
 
