@@ -36,6 +36,8 @@ class Dashport():
         self.panels = []
         self.panel_dimensions = []
         self.title_offset = 0
+        if kwargs.get("scroll"):
+            self.screen.scrollok(True)
         curses.start_color()
         curses.use_default_colors()
         color_defs()
@@ -100,7 +102,7 @@ class Dashport():
             self.screen.addstr(set_y, set_x, content,
                                cpi(self.color_default, color))
             if ending == "\n" and (
-                set_y == self.cursor_y and
+                set_y == self.cursor_y + self.title_offset and
                     set_x == self.cursor_x):
                 self.cursor_y += 1
         else:
@@ -140,13 +142,15 @@ class Dashport():
         """
         if not color:
             color = self.color_default
-        self.screen.addstr(y + self.title_offset, x, content, cpi(self.color_default, color))
+        self.screen.addstr(y + self.title_offset, x, content,
+                           cpi(self.color_default, color))
 
     def rectangle(self, x, y, width, height, color=None):
         """
         Draw a filled in rectangle on the screen.
         """
-        for j in range(y + self.title_offset, y + height - self.title_bottom_offset):
+        for j in range(y + self.title_offset,
+                       y + height - self.title_bottom_offset):
             for i in range(x, x + width):
                 self.screen.addstr(j, i, " ", cpi(self.color_default, color))
 
@@ -154,7 +158,8 @@ class Dashport():
         """
         Fill the background with a color
         """
-        for j in range(0 + self.title_offset, self.rows - self.title_bottom_offset):
+        for j in range(0 + self.title_offset,
+                       self.rows - self.title_bottom_offset):
             for i in range(0, self.cols):
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
 

@@ -11,14 +11,20 @@ def quit(app):
     exit(0)
 
 
+def scroll_down(app):
+    app.screen.scroll(1)
+
+
 def dashport(stdscr):
-    app = Dashport(stdscr)
+    app = Dashport(stdscr, scroll=True)
     app.add_control("q", quit)
-    app.window.scrollok(True)
-    app.window.idlok(True)
+    app.add_control("KEY_DOWN", scroll_down)
     rows, cols = app.screen.getmaxyx()
-    for i in range(0, app.rows + 1):
-        app.print(f"Line: {i}")
+    app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
+                  align="top", color=256)
+    app.screen.setscrreg(1, app.rows - 1)
+    for i in range(0, app.rows - 1):
+        app.print(content=f"Line: {i}")
 
     while True:
         app.refresh()

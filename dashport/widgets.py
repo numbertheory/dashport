@@ -5,7 +5,7 @@ def title_bar(app, **kwargs):
     text = kwargs.get("text", "")
     color = kwargs.get("color", app.color_default)
     if align == "top":
-        app.print(content=text.ljust(app.cols), x=0, y=0, color=color)
+        app.print(content=text.ljust(app.cols), x=0, y=0, color=color, end="")
         app.title_offset = 1
     elif align == "bottom":
         app.title_offset = 0
