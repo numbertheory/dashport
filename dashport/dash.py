@@ -35,6 +35,8 @@ class Dashport():
         self.color_default = kwargs.get("color_default", 8)
         self.panels = []
         self.panel_dimensions = []
+        self.panel_scroll = []
+        self.panel_border = []
         self.title_offset = 0
         self.top_title_row = None
         self.bottom_title_row = self.rows - 1
@@ -85,11 +87,18 @@ class Dashport():
         y = kwargs.get("y")
         x = kwargs.get("x")
         border = kwargs.get("border")
-        enable_scroll = kwargs.get("scroll", False)
+        enable_scroll = kwargs.get("scroll", True)
         win = curses.newwin(height, length, y + self.title_offset, x)
+        if enable_scroll:
+            win.scrollok(True)
+            if border:
+                win.setscrreg(1, height - 2)
+            else:
+                win.setscrreg(0, height - 1)
         if border:
             win.box()
         panel = curses.panel.new_panel(win)
+        self.panel_border.append(enable_scroll)
         curses.panel.update_panels()
         return win, panel
 
@@ -124,10 +133,17 @@ class Dashport():
         else:
             panel_y = kwargs.get("y", self.panel_coords[panel][1])
             panel_x = kwargs.get("x", self.panel_coords[panel][0])
+            if panel_y > self.panel_dimensions[panel][0] - 2:
+                self.panels[panel].scroll(1)
+                ending = ""
+                panel_y = self.panel_dimensions[panel][0] - 2
             self.panels[panel].addstr(panel_y, panel_x, content,
                                       cpi(self.color_default, color))
+            if self.panel_border[panel]:
+                self.panels[panel].box()
             curses.panel.update_panels()
             self.screen.refresh()
+
             if ending == "\n" and (
                 panel_y == self.panel_coords[panel][1] and
                     panel_x == self.panel_coords[panel][0]):

@@ -18,13 +18,12 @@ def scroll_down(app):
 def dashport(stdscr):
     app = Dashport(stdscr, scroll=True)
     app.add_control("q", quit)
-    app.add_control("KEY_DOWN", scroll_down)
     rows, cols = app.screen.getmaxyx()
-    app.split_screen_columns(borders=True)
+    app.split_screen_columns(border=True)
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
                   align="top", color=256)
-    for i in range(0, 41):
-        app.print(content=f"Line: {i} {app.cursor_y}", x=1, y=i+1, panel=1)
+    for i in range(0, 1000):
+        app.print(content=f"Line: {i}", x=1, y=i+1, panel=1)
 
     while True:
         app.refresh()
