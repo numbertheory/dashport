@@ -133,10 +133,14 @@ class Dashport():
         else:
             panel_y = kwargs.get("y", self.panel_coords[panel][1])
             panel_x = kwargs.get("x", self.panel_coords[panel][0])
-            if panel_y > self.panel_dimensions[panel][0] - 2:
+            if self.panel_border[panel]:
+                border_offset = 2
+            else:
+                border_offset = 1
+            if panel_y > self.panel_dimensions[panel][0] - border_offset:
                 self.panels[panel].scroll(1)
                 ending = ""
-                panel_y = self.panel_dimensions[panel][0] - 2
+                panel_y = self.panel_dimensions[panel][0] - border_offset
             self.panels[panel].addstr(panel_y, panel_x, content,
                                       cpi(self.color_default, color))
             if self.panel_border[panel]:
