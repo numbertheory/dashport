@@ -12,11 +12,7 @@ def quit(app):
 
 
 def four_way_split(app):
-    app.screen.clear()
-    app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
-                       "Q to quit.",
-                  align="bottom", color=256)
-    app.split_screen_quad(borders=True)
+    app.split_screen_quad(border=True)
     app.print("panel 0", panel=0)
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0)
     app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3, panel=0)
@@ -32,10 +28,7 @@ def four_way_split(app):
 
 
 def three_way_split(app):
-    app.screen.clear()
-    app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
-                       "Q to quit.", color=256)
-    app.split_screen_three_vert(borders=True, long_side="right",
+    app.split_screen_three_vert(border=True, long_side="right",
                                 long_side_width=100)
     app.print("panel 0", panel=0)
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0)
@@ -49,8 +42,11 @@ def three_way_split(app):
 
 
 def dashport(stdscr):
-    app = Dashport(stdscr, color_default=176)
+    app = Dashport(stdscr, color_default=176,  scroll=True)
     app.add_control("q", quit, case_sensitive=False)
+    app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
+                       "Q to quit.",
+                  align="top", color=256)
     three_way_split(app)
     app.add_control("4", four_way_split)
     app.add_control("3", three_way_split)

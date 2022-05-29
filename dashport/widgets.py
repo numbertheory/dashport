@@ -5,7 +5,7 @@ def title_bar(app, **kwargs):
     text = kwargs.get("text", "")
     color = kwargs.get("color", app.color_default)
     if align == "top":
-        app.print(content=text.ljust(app.cols), x=0, y=0, color=color, end="")
+        app.insstr(text.ljust(app.cols), x=0, y=0, color=color)
         app.title_offset = 1
         app.screen.setscrreg(1, app.rows - 1)
         app.top_title_row = 0

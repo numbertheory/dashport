@@ -79,7 +79,13 @@ class Dashport():
             if key_pressed in self.controls:
                 self.controls[key_pressed](self)
 
-    def panel(self, height, length, y, x, border=False):
+    def panel(self, **kwargs):
+        height = kwargs.get("height")
+        length = kwargs.get("length")
+        y = kwargs.get("y")
+        x = kwargs.get("x")
+        border = kwargs.get("border")
+        enable_scroll = kwargs.get("scroll", False)
         win = curses.newwin(height, length, y + self.title_offset, x)
         if border:
             win.box()
@@ -178,28 +184,28 @@ class Dashport():
         Splits the screen into two vertical panels
         """
         self.panels = layout.split_screen_columns(
-            self, borders=kwargs.get("borders", False))
+            self, border=kwargs.get("border", False))
 
     def split_screen_rows(self, **kwargs):
         """
         Splits the screen into two horizontal panels
         """
         self.panels = layout.split_screen_rows(
-            self, borders=kwargs.get("borders", False))
+            self, border=kwargs.get("border", False))
 
     def split_screen_quad(self, **kwargs):
         """
         Splits the screen into four quadrant panels
         """
         self.panels = layout.quadrants(
-            self, borders=kwargs.get("borders", False))
+            self, border=kwargs.get("border", False))
 
     def split_screen_three_vert(self, **kwargs):
         """
         Splits the screen into three panels
         """
         self.panels = layout.three_panels_vert(
-            self, borders=kwargs.get("borders", False),
+            self, border=kwargs.get("border", False),
             long_side=kwargs.get("long_side", "right"),
             long_side_width=kwargs.get("long_side_width"))
 
@@ -208,6 +214,6 @@ class Dashport():
         Splits the screen into three panels
         """
         self.panels = layout.three_panels_horizontal(
-            self, borders=kwargs.get("borders", False),
+            self, border=kwargs.get("border", False),
             long_side=kwargs.get("long_side", "top"),
             long_side_height=kwargs.get("long_side_height"))
