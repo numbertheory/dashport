@@ -37,16 +37,21 @@ You can also pass in a list of booleans into any layout to enable borders. Do th
 
 ## border_styles
 
-The border_styles attribute can also be used to define the border styles of the individual panels. For this, provide a list of numbered border styles (see table below for the complete list of border styles) that matches the panels that will be generated. Even if some panels don't have borders, still place a `0` for the border style (which is the default) as a placeholder.
+The border_styles attribute can also be used to define the border styles of the individual panels. For this, provide a list of numbered border styles (see table below for the complete list of built-in border styles) that matches the panels that will be generated. Even if some panels don't have borders (in the example below, the second panel does not have a border), still place a value for the border style as a placeholder.
 
 ```
-    app.split_screen_quad(borders=[False, False, True, True], border_styles=[0, 0, 1, 2])
+app.split_screen_quad(border=[True, False, True, True],
+                        border_styles=[0, 1, 1, None])
+app.panels[3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
 ```
+
+By using `None` as a border style, the built-in borders are not used, and the program can then manually provide a border style, using the [native curses method](https://docs.python.org/3/library/curses.html#curses.window.border). The panels are all in the `app.panels` attribute as a list, so borders can be set manually for any panel that exists. To disable a border you've created manually, simply define that section of the border with a space character.
 
 | border_styles # | Definition |
 |-----------------| -------------|
 | 0 | Default borders provided by curses `.border()` method |            |
 | 1 | dashes and pluses `('\|', '\|', '-', '-', '+', '+', '+', '+')` |
+| 2 | slashes no corners `('\\', '/', '=', '=', ' ', ' ', ' ', ' ')` |
 
 # Three way splits
 
