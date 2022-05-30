@@ -19,7 +19,7 @@ def dashport(stdscr):
     app = Dashport(stdscr, scroll=True)
     app.add_control("q", quit)
     rows, cols = app.screen.getmaxyx()
-    app.split_screen_columns(border=True)
+    app.split_screen_columns(border=False)
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
                   align="top", color=256)
     for i in range(0, 1000):

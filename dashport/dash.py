@@ -98,7 +98,7 @@ class Dashport():
         if border:
             win.box()
         panel = curses.panel.new_panel(win)
-        self.panel_border.append(enable_scroll)
+        self.panel_border.append(border)
         curses.panel.update_panels()
         return win, panel
 
