@@ -14,9 +14,12 @@ def error_message(e, screen):
     print("# of cols: {}".format(info.cols))
 
 
-def wrap(dashport, info):
+def wrap(dashport, info=None):
     try:
         wrapper(dashport)
     except curses.error as e:
-        error_message(e, info)
-        exit(0)
+        if info:
+            error_message(e, info)
+        else:
+            print(e)
+            raise

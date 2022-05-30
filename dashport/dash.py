@@ -278,6 +278,15 @@ class Dashport():
             for i in range(0, self.cols):
                 self.screen.insstr(j, i, " ", cpi(self.color_default, color))
 
+    def single_panel(self, **kwargs):
+        """
+        Creates one single panel that takes up the screen
+        """
+        self.panels = layout.single_panel(
+            self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0]),
+            scroll=kwargs.get("scroll", False))
+
     def split_screen_columns(self, **kwargs):
         """
         Splits the screen into two vertical panels

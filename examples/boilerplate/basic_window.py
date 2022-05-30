@@ -1,19 +1,22 @@
 #! /usr/bin/env python3
-from dashport.dash import Dashport, Info
+from dashport.dash import Dashport
 from dashport.run import wrap
 
 
-def info(stdscr):
-    return Info(stdscr)
+def quit(app):
+    exit(0)
 
 
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=8)
-    app.print("This text is bold", A_BOLD=True)
-    app.print("This text is reversed", A_REVERSE=True)
+    app.add_control("q", quit, case_sensitive=False)
+    app.single_panel(border=True)
+    app.print("This text is bold.", A_BOLD=True, panel=0, x=1, y=1)
+    app.print("This text is reversed.", A_REVERSE=True, panel=0, x=1, y=2)
+    app.print("This text is normal.", panel=0, x=1, y=1300)
     while True:
         app.refresh()
 
 
 if __name__ == '__main__':
-    wrap(dashport, info)
+    wrap(dashport)

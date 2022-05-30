@@ -2,6 +2,22 @@
 import curses
 
 
+def single_panel(app, **kwargs):
+    border = kwargs.get("border", False)
+    border_styles = kwargs.get("border_styles", [0])
+    if isinstance(border, bool):
+        border = [border]
+    win1, panel1 = app.panel(height=app.rows, length=app.cols, y=0, x=0,
+                             scroll=kwargs.get("scroll", False),
+                             border=border[0],
+                             border_style=border_styles[0])
+    curses.panel.update_panels()
+    app.screen.refresh()
+    app.panel_coords = [[0, 0]]
+    app.panel_dimensions = [win1.getmaxyx()]
+    return [win1, panel1]
+
+
 def split_screen_columns(app, **kwargs):
     split_cols = int(app.cols / 2)
     border = kwargs.get("border", False)
