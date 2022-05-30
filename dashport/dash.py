@@ -87,7 +87,7 @@ class Dashport():
         y = kwargs.get("y")
         x = kwargs.get("x")
         border = kwargs.get("border")
-        enable_scroll = kwargs.get("scroll", True)
+        enable_scroll = kwargs.get("scroll", False)
         win = curses.newwin(height, length, y + self.title_offset, x)
         if enable_scroll:
             win.scrollok(True)
