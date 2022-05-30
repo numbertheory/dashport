@@ -4,14 +4,17 @@ import curses
 
 def split_screen_columns(app, **kwargs):
     split_cols = int(app.cols / 2)
+    border = kwargs.get("border", False)
+    if isinstance(border, bool):
+        border = [border] * 2
     win1, panel1 = app.panel(height=app.rows, length=split_cols, y=0, x=0,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[0])
     win2, panel2 = app.panel(height=app.rows, length=split_cols,
                              y=0,
                              x=split_cols,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[1])
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0]]
@@ -21,14 +24,17 @@ def split_screen_columns(app, **kwargs):
 
 def split_screen_rows(app, **kwargs):
     split_rows = int(app.rows / 2)
+    border = kwargs.get("border", False)
+    if isinstance(border, bool):
+        border = [border] * 2
     win1, panel1 = app.panel(height=split_rows, length=app.cols, y=0, x=0,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[0])
     win2, panel2 = app.panel(height=split_rows, length=app.cols,
                              y=split_rows,
                              x=0,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[1])
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0]]
@@ -39,22 +45,25 @@ def split_screen_rows(app, **kwargs):
 def quadrants(app, **kwargs):
     split_rows = int(app.rows / 2)
     split_cols = int(app.cols / 2)
+    border = kwargs.get("border", False)
+    if isinstance(border, bool):
+        border = [border] * 4
     win1, panel1 = app.panel(height=split_rows, length=split_cols,
                              y=0, x=0,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[0])
     win2, panel2 = app.panel(height=split_rows, length=split_cols,
                              y=0, x=split_cols,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[1])
     win3, panel3 = app.panel(height=split_rows, length=split_cols,
                              y=split_rows, x=0,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[2])
     win4, panel4 = app.panel(height=split_rows, length=split_cols,
                              y=split_rows, x=split_cols,
                              scroll=kwargs.get("scroll", False),
-                             border=kwargs.get("border", False))
+                             border=border[3])
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0], [0, 0], [0, 0]]
@@ -68,6 +77,8 @@ def three_panels_vert(app, **kwargs):
     split_cols = int(app.cols / 2)
     long_side = kwargs.get("long_side", "right")
     border = kwargs.get("border", False)
+    if isinstance(border, bool):
+        border = [border] * 3
     long_side_width = kwargs.get("long_side_width", None)
     if not long_side_width:
         long_side_width = split_cols
@@ -75,32 +86,32 @@ def three_panels_vert(app, **kwargs):
         win1, panel1 = app.panel(height=split_rows,
                                  length=app.cols - long_side_width,
                                  scroll=kwargs.get("scroll", False),
-                                 y=0, x=0, border=border)
+                                 y=0, x=0, border=border[0])
         win2, panel2 = app.panel(
             height=app.rows - app.title_offset - app.title_bottom_offset,
             length=long_side_width,
             y=0, x=app.cols - long_side_width,
             scroll=kwargs.get("scroll", False),
-            border=border)
+            border=border[1])
         win3, panel3 = app.panel(height=split_rows,
                                  length=app.cols - long_side_width,
                                  scroll=kwargs.get("scroll", False),
-                                 y=split_rows, x=0, border=border)
+                                 y=split_rows, x=0, border=border[2])
     elif long_side == "left":
         win1, panel1 = app.panel(
             height=app.rows - app.title_offset - app.title_bottom_offset,
             length=long_side_width,
             scroll=kwargs.get("scroll", False),
-            y=0, x=0, border=border)
+            y=0, x=0, border=border[0])
         win2, panel2 = app.panel(height=split_rows,
                                  length=app.cols - long_side_width,
                                  scroll=kwargs.get("scroll", False),
-                                 y=0, x=long_side_width, border=border)
+                                 y=0, x=long_side_width, border=border[1])
         win3, panel3 = app.panel(height=split_rows,
                                  length=app.cols - long_side_width,
                                  y=split_rows, x=long_side_width,
                                  scroll=kwargs.get("scroll", False),
-                                 border=border)
+                                 border=border[2])
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0], [0, 0]]
@@ -114,6 +125,9 @@ def three_panels_horizontal(app, **kwargs):
     split_cols = int(app.cols / 2)
     long_side = kwargs.get("long_side", "top")
     border = kwargs.get("border", False)
+    border = kwargs.get("border", False)
+    if isinstance(border, bool):
+        border = [border] * 3
     long_side_height = kwargs.get("long_side_height", None)
     if not long_side_height:
         long_side_height = split_rows
@@ -121,29 +135,29 @@ def three_panels_horizontal(app, **kwargs):
         win1, panel1 = app.panel(height=long_side_height,
                                  length=app.cols,
                                  scroll=kwargs.get("scroll", False),
-                                 y=0, x=0, border=border)
+                                 y=0, x=0, border=border[0])
         win2, panel2 = app.panel(height=app.rows - long_side_height,
                                  length=split_cols,
                                  scroll=kwargs.get("scroll", False),
-                                 y=long_side_height, x=0, border=border)
+                                 y=long_side_height, x=0, border=border[1])
         win3, panel3 = app.panel(height=app.rows - long_side_height,
                                  length=split_cols,
                                  scroll=kwargs.get("scroll", False),
                                  y=long_side_height, x=split_cols,
-                                 border=border)
+                                 border=border[2])
     elif long_side == "bottom":
         win1, panel1 = app.panel(height=app.rows - long_side_height,
                                  length=split_cols,
                                  scroll=kwargs.get("scroll", False),
-                                 y=0, x=0, border=border)
+                                 y=0, x=0, border=border[0])
         win2, panel2 = app.panel(height=app.rows - long_side_height,
                                  length=split_cols,
                                  scroll=kwargs.get("scroll", False),
-                                 y=0, x=split_cols, border=border)
+                                 y=0, x=split_cols, border=border[1])
         win3, panel3 = app.panel(height=long_side_height, length=app.cols,
                                  y=app.rows - long_side_height, x=0,
                                  scroll=kwargs.get("scroll", False),
-                                 border=border)
+                                 border=border[2])
     curses.panel.update_panels()
     app.screen.refresh()
     app.panel_coords = [[0, 0], [0, 0], [0, 0]]
