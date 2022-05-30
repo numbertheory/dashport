@@ -3,7 +3,7 @@
 Layouts in Dashport can be used to divide the screen easily and make separate panels that you can use `print` to display
 text on.
 
-In the [split_screen_quad example](examples/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" value to the print command. By default, the starting position of each panel is at `[0, 0]`, but you can manually set x and y to whatever position you need. Important note: the coordinates in each panel are relative to the panel, not the entire screen. Use the `panel_dimensions` attribute of each panel to evaluate the current maximum columns and rows that are available in each panel. The `panel_dimensions` attribute is a list of tuples, which give the dimensions of each panel.
+In the [split_screen_quad example](examples/layouts/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" value to the print command. By default, the starting position of each panel is at `[0, 0]`, but you can manually set x and y to whatever position you need. Important note: the coordinates in each panel are relative to the panel, not the entire screen. Use the `panel_dimensions` attribute of each panel to evaluate the current maximum columns and rows that are available in each panel. The `panel_dimensions` attribute is a list of tuples, which give the dimensions of each panel.
 
 ```
 #!/usr/bin/env python3
@@ -25,12 +25,20 @@ if __name__ == '__main__':
     wrap(dashport, info)
 ```
 
+## borders
+
+You can also pass in a list of booleans into any layout to enable borders. Do this if you want some panels to have their border enabled, and some not.
+
+```
+    app.split_screen_quad(borders=[False, False, False, True])
+```
+
 Other available splits are `split_screen_columns`, which divides the screen in two equal pieces, divided vertically, and `split_screen_rows` which does the same split with the division being horizontal.
 
 # Three way splits
 
 Splitting the screen in three ways means that you can determine which side of the screen the longer panel will be on (top or bottom for horizontal splits and left or right for vertical splits), and what the width of that panel will be.
 
-When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to set the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](examples/split_screen_three_vert.py) for an example.
+When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to set the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](examples/layouts/split_screen_three_vert.py) for an example.
 
-When using `split_screen_three_horizontal`, set `long_side` to `top` or `bottom` to set the longer panel to the top or bottom, and then `long_side_height` to set the height of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_horizontal.py](examples/split_screen_three_horizontal.py) for an example.
+When using `split_screen_three_horizontal`, set `long_side` to `top` or `bottom` to set the longer panel to the top or bottom, and then `long_side_height` to set the height of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_horizontal.py](examples/layouts/split_screen_three_horizontal.py) for an example.
