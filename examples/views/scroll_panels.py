@@ -19,11 +19,11 @@ def dashport(stdscr):
     app = Dashport(stdscr, scroll=True)
     app.add_control("q", quit)
     rows, cols = app.screen.getmaxyx()
-    app.split_screen_columns(border=False, scroll=True)
+    app.split_screen_three_vert(border=True, scroll=True)
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
                   align="top", color=256)
     for i in range(0, 1000):
-        app.print(content=f"Line: {i}", x=1, y=i+1, panel=1)
+        app.print(content=f"Line: {i}", x=1, y=i+1, panel=0)
 
     while True:
         app.refresh()

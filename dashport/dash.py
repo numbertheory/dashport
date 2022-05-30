@@ -204,21 +204,24 @@ class Dashport():
         Splits the screen into two vertical panels
         """
         self.panels = layout.split_screen_columns(
-            self, border=kwargs.get("border", False))
+            self, border=kwargs.get("border", False),
+            scroll=kwargs.get("scroll", False))
 
     def split_screen_rows(self, **kwargs):
         """
         Splits the screen into two horizontal panels
         """
         self.panels = layout.split_screen_rows(
-            self, border=kwargs.get("border", False))
+            self, border=kwargs.get("border", False),
+            scroll=kwargs.get("scroll", False))
 
     def split_screen_quad(self, **kwargs):
         """
         Splits the screen into four quadrant panels
         """
         self.panels = layout.quadrants(
-            self, border=kwargs.get("border", False))
+            self, border=kwargs.get("border", False),
+            scroll=kwargs.get("scroll", False))
 
     def split_screen_three_vert(self, **kwargs):
         """
@@ -227,7 +230,8 @@ class Dashport():
         self.panels = layout.three_panels_vert(
             self, border=kwargs.get("border", False),
             long_side=kwargs.get("long_side", "right"),
-            long_side_width=kwargs.get("long_side_width"))
+            long_side_width=kwargs.get("long_side_width"),
+            scroll=kwargs.get("scroll", False))
 
     def split_screen_three_horizontal(self, **kwargs):
         """
@@ -236,4 +240,5 @@ class Dashport():
         self.panels = layout.three_panels_horizontal(
             self, border=kwargs.get("border", False),
             long_side=kwargs.get("long_side", "top"),
-            long_side_height=kwargs.get("long_side_height"))
+            long_side_height=kwargs.get("long_side_height"),
+            scroll=kwargs.get("scroll", False))
