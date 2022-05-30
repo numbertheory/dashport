@@ -25,15 +25,28 @@ if __name__ == '__main__':
     wrap(dashport, info)
 ```
 
+Other available splits are `split_screen_columns`, which divides the screen in two equal pieces, divided vertically, and `split_screen_rows` which does the same split with the division being horizontal.
+
 ## borders
 
-You can also pass in a list of booleans into any layout to enable borders. Do this if you want some panels to have their border enabled, and some not.
+You can also pass in a list of booleans into any layout to enable borders. Do this if you want some panels to have their border enabled, and some not. You can still just pass in a single boolean (not in a list), to enable borders on all panels.
 
 ```
     app.split_screen_quad(borders=[False, False, False, True])
 ```
 
-Other available splits are `split_screen_columns`, which divides the screen in two equal pieces, divided vertically, and `split_screen_rows` which does the same split with the division being horizontal.
+## border_styles
+
+The border_styles attribute can also be used to define the border styles of the individual panels. For this, provide a list of numbered border styles (see table below for the complete list of border styles) that matches the panels that will be generated. Even if some panels don't have borders, still place a `0` for the border style (which is the default) as a placeholder.
+
+```
+    app.split_screen_quad(borders=[False, False, True, True], border_styles=[0, 0, 1, 2])
+```
+
+| border_styles # | Definition |
++-------------------------------+
+| 0 | Default borders provided by curses `.border()` method |            |
+| 1 | dashes and pluses `('|', '|', '-', '-', '+', '+', '+', '+')` |
 
 # Three way splits
 

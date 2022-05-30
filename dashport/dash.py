@@ -3,7 +3,7 @@ import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
 from dashport.colors import color_defs
-from dashport import layout, widgets
+from dashport import layout, widgets, borders
 
 
 class Info():
@@ -37,6 +37,7 @@ class Dashport():
         self.panel_dimensions = []
         self.panel_scroll = []
         self.panel_border = []
+        self.panel_border_styles = []
         self.title_offset = 0
         self.top_title_row = None
         self.bottom_title_row = self.rows - 1
@@ -87,6 +88,7 @@ class Dashport():
         y = kwargs.get("y")
         x = kwargs.get("x")
         border = kwargs.get("border")
+        border_style = kwargs.get("border_style", 0)
         enable_scroll = kwargs.get("scroll", False)
         win = curses.newwin(height, length, y + self.title_offset, x)
         if enable_scroll:
@@ -96,9 +98,10 @@ class Dashport():
             else:
                 win.setscrreg(0, height - 1)
         if border:
-            win.box()
+            borders.style(win, border_style)
         panel = curses.panel.new_panel(win)
         self.panel_border.append(border)
+        self.panel_border_styles.append(border_style)
         curses.panel.update_panels()
         return win, panel
 
@@ -144,7 +147,8 @@ class Dashport():
             self.panels[panel].addstr(panel_y, panel_x, content,
                                       cpi(self.color_default, color))
             if self.panel_border[panel]:
-                self.panels[panel].box()
+                borders.style(self.panels[panel],
+                              self.panel_border_styles[panel])
             curses.panel.update_panels()
             self.screen.refresh()
 
@@ -205,6 +209,7 @@ class Dashport():
         """
         self.panels = layout.split_screen_columns(
             self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0, 0]),
             scroll=kwargs.get("scroll", False))
 
     def split_screen_rows(self, **kwargs):
@@ -213,6 +218,7 @@ class Dashport():
         """
         self.panels = layout.split_screen_rows(
             self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0, 0]),
             scroll=kwargs.get("scroll", False))
 
     def split_screen_quad(self, **kwargs):
@@ -221,6 +227,7 @@ class Dashport():
         """
         self.panels = layout.quadrants(
             self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0, 0, 0, 0]),
             scroll=kwargs.get("scroll", False))
 
     def split_screen_three_vert(self, **kwargs):
@@ -229,6 +236,7 @@ class Dashport():
         """
         self.panels = layout.three_panels_vert(
             self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0, 0, 0]),
             long_side=kwargs.get("long_side", "right"),
             long_side_width=kwargs.get("long_side_width"),
             scroll=kwargs.get("scroll", False))
@@ -239,6 +247,7 @@ class Dashport():
         """
         self.panels = layout.three_panels_horizontal(
             self, border=kwargs.get("border", False),
+            border_styles=kwargs.get("border_styles", [0, 0, 0]),
             long_side=kwargs.get("long_side", "top"),
             long_side_height=kwargs.get("long_side_height"),
             scroll=kwargs.get("scroll", False))
