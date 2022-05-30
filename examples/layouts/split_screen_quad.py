@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from dashport.dash import Dashport, Info
 from dashport.run import wrap
-import curses
 
 
 def info(app):
