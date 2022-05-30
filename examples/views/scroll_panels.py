@@ -23,7 +23,7 @@ def dashport(stdscr):
     app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
                   align="top", color=256)
     for i in range(0, 1000):
-        app.print(content=f"Line: {i}", x=1, y=i+1, panel=0)
+        app.print(content=f"Line: {i}", x=1, y=i+1, panel="layout.0")
 
     while True:
         app.refresh()

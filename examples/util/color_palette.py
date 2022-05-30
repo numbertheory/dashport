@@ -2,6 +2,10 @@
 from dashport.dash import Dashport, Info
 from dashport.run import wrap
 
+"""
+This demo needs at least 80 columns and 32 lines to work.
+"""
+
 
 def quit(*args):
     exit(0)

@@ -5,9 +5,11 @@ import curses
 def single_panel(app, **kwargs):
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0])
+    height = kwargs.get("height", app.rows)
+    width = kwargs.get("width", app.cols)
     if isinstance(border, bool):
         border = [border]
-    win1, panel1 = app.panel(height=app.rows, length=app.cols, y=0, x=0,
+    win1, panel1 = app.panel(height=height, length=width, y=0, x=0,
                              scroll=kwargs.get("scroll", False),
                              border=border[0],
                              border_style=border_styles[0])
@@ -19,7 +21,10 @@ def single_panel(app, **kwargs):
 
 
 def split_screen_columns(app, **kwargs):
-    split_cols = int(app.cols / 2)
+    if not kwargs.get("center_divide_x"):
+        split_cols = int(app.cols / 2)
+    else:
+        split_cols = int(kwargs.get("center_divide_x"))
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0, 0])
     if isinstance(border, bool):
@@ -42,17 +47,21 @@ def split_screen_columns(app, **kwargs):
 
 
 def split_screen_rows(app, **kwargs):
-    split_rows = int(app.rows / 2)
+    if not kwargs.get("center_divide_y"):
+        split_rows = [int(app.rows / 2), int(app.rows / 2)]
+    else:
+        split_rows = [int(kwargs.get("center_divide_y")),
+                      app.rows - int(kwargs.get("center_divide_y"))]
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0, 0])
     if isinstance(border, bool):
         border = [border] * 2
-    win1, panel1 = app.panel(height=split_rows, length=app.cols, y=0, x=0,
+    win1, panel1 = app.panel(height=split_rows[0], length=app.cols, y=0, x=0,
                              scroll=kwargs.get("scroll", False),
                              border=border[0],
                              border_style=border_styles[0])
-    win2, panel2 = app.panel(height=split_rows, length=app.cols,
-                             y=split_rows,
+    win2, panel2 = app.panel(height=split_rows[1], length=app.cols,
+                             y=split_rows[0],
                              x=0,
                              scroll=kwargs.get("scroll", False),
                              border=border[1],

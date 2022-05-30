@@ -3,7 +3,16 @@
 Layouts in Dashport can be used to divide the screen easily and make separate panels that you can use `print` to display
 text on.
 
-In the [split_screen_quad example](examples/layouts/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" value to the print command. By default, the starting position of each panel is at `[0, 0]`, but you can manually set x and y to whatever position you need. Important note: the coordinates in each panel are relative to the panel, not the entire screen. Use the `panel_dimensions` attribute of each panel to evaluate the current maximum columns and rows that are available in each panel. The `panel_dimensions` attribute is a list of tuples, which give the dimensions of each panel.
+In the [split_screen_quad example](examples/layouts/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" string value to the print command. Each screen can only have one layout at a time, which the app stores in the app.panels dict under the key "layout".  
+
+Using the `print` command, select the panel, by passing in a string which tells both that print should access the "layout" key to find the panel, and the index value of the panel that should be manipulated.  Example:
+
+```
+app.print("some text", panel="layout.0")
+```
+This would print `some text` to the first panel of the layout.
+
+By default, the starting position of each panel is at `[0, 0]`, but you can manually set x and y to whatever position you need. Important note: the coordinates in each panel are relative to the panel, not the entire screen. Use the `panel_dimensions` attribute of each panel to evaluate the current maximum columns and rows that are available in each panel. The `panel_dimensions` attribute is a list of tuples, which give the dimensions of each panel.
 
 ```
 #!/usr/bin/env python3
@@ -14,9 +23,9 @@ def dashport(stdscr):
     app = Dashport(stdscr, color_default=176)
     app.add_control("q", quit, case_sensitive=False)
     app.split_screen_quad(borders=True)
-    app.print("panel 0", panel=0)
-    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0)
-    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3, panel=0)
+    app.print("panel 0", panel="layout.0")
+    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel="layout.0")
+    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3, panel="layout.0")
     while True:
         app.refresh()
 
@@ -41,8 +50,8 @@ The border_styles attribute can also be used to define the border styles of the 
 
 ```
 app.split_screen_quad(border=[True, False, True, True],
-                        border_styles=[0, 1, 1, None])
-app.panels[3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
+                      border_styles=[0, 1, 1, None])
+app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
 ```
 
 By using `None` as a border style, the built-in borders are not used, and the program can then manually provide a border style, using the [native curses method](https://docs.python.org/3/library/curses.html#curses.window.border). The panels are all in the `app.panels` attribute as a list, so borders can be set manually for any panel that exists. To disable a border you've created manually, simply define that section of the border with a space character.

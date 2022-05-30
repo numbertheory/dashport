@@ -15,16 +15,22 @@ def dashport(stdscr):
     app = Dashport(stdscr, color_default=176)
     app.add_control("q", quit, case_sensitive=False)
     app.split_screen_three_horizontal(
-        border=True, long_side="bottom", long_side_height=10)
-    app.print("panel 0", panel=0)
-    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0)
-    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3, panel=0)
-    app.print("panel 1", panel=1)
-    app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2, panel=1)
-    app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3, panel=1)
-    app.print("panel 2", panel=2)
-    app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2, panel=2)
-    app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3, panel=2)
+        border=[False, False, True], long_side="bottom", long_side_height=10)
+    app.print("panel 0", panel="layout.0")
+    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
+              panel="layout.0")
+    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3,
+              panel="layout.0")
+    app.print("panel 1", panel="layout.1")
+    app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2,
+              panel="layout.1")
+    app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3,
+              panel="layout.1")
+    app.print("panel 2", x=1, y=1, panel="layout.2")
+    app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2,
+              panel="layout.2")
+    app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3,
+              panel="layout.2")
     while True:
         app.refresh()
 

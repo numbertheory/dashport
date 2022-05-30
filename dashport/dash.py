@@ -33,7 +33,7 @@ class Dashport():
         self.cursor_x = 0
         self.cursor_y = 0
         self.color_default = kwargs.get("color_default", 8)
-        self.panels = []
+        self.panels = dict()
         self.panel_dimensions = []
         self.panel_scroll = []
         self.panel_border = []
@@ -42,6 +42,7 @@ class Dashport():
         self.top_title_row = None
         self.bottom_title_row = self.rows - 1
         self.scroll_screen = False
+        self.current_command = ""
         if kwargs.get("scroll"):
             self.screen.scrollok(True)
             self.scroll_screen = True
@@ -117,7 +118,12 @@ class Dashport():
         """
         set_y = kwargs.get("y", self.cursor_y) + self.title_offset
         set_x = kwargs.get("x", self.cursor_x)
-        panel = kwargs.get("panel")
+        if kwargs.get("panel"):
+            panel = [x for x in kwargs.get("panel").split(".")
+                     if not x.isdigit()]
+            panel.append(int(kwargs.get("panel").split(".")[1]))
+        else:
+            panel = None
         ending = kwargs.get("end", "\n")
         format_text_list = format_text(kwargs)
         if set_y == self.top_title_row:
@@ -127,7 +133,7 @@ class Dashport():
             ending = ""
         if not color:
             color = self.color_default
-        if not isinstance(panel, int):
+        if not isinstance(panel, list):
             self.screen.addstr(set_y, set_x, content,
                                cpi(self.color_default, color)
                                | format_text_list[0]
@@ -153,46 +159,47 @@ class Dashport():
                     set_x == self.cursor_x):
                 self.cursor_y += 1
         else:
-            panel_y = kwargs.get("y", self.panel_coords[panel][1])
-            panel_x = kwargs.get("x", self.panel_coords[panel][0])
-            if self.panel_border[panel]:
+            panel_y = kwargs.get("y", self.panel_coords[panel[1]][1])
+            panel_x = kwargs.get("x", self.panel_coords[panel[1]][0])
+            if self.panel_border[panel[1]]:
                 border_offset = 2
             else:
                 border_offset = 1
-            if panel_y > self.panel_dimensions[panel][0] - border_offset:
-                self.panels[panel].scroll(1)
+            if panel_y > self.panel_dimensions[panel[1]][0] - border_offset:
+                self.panels[panel[0]][panel[1]].scroll(1)
                 ending = ""
-                panel_y = self.panel_dimensions[panel][0] - border_offset
-            self.panels[panel].addstr(panel_y, panel_x, content,
-                                      cpi(self.color_default, color)
-                                      | format_text_list[0]
-                                      | format_text_list[1]
-                                      | format_text_list[2]
-                                      | format_text_list[3]
-                                      | format_text_list[4]
-                                      | format_text_list[5]
-                                      | format_text_list[6]
-                                      | format_text_list[7]
-                                      | format_text_list[8]
-                                      | format_text_list[9]
-                                      | format_text_list[10]
-                                      | format_text_list[11]
-                                      | format_text_list[12]
-                                      | format_text_list[13]
-                                      | format_text_list[14]
-                                      | format_text_list[15]
-                                      | format_text_list[16]
-                                      | format_text_list[17])
-            if self.panel_border[panel]:
-                borders.style(self.panels[panel],
-                              self.panel_border_styles[panel])
+                panel_y = self.panel_dimensions[panel[1]][0] - border_offset
+            self.panels[panel[0]][panel[1]].addstr(
+                panel_y, panel_x, content,
+                cpi(self.color_default, color)
+                | format_text_list[0]
+                | format_text_list[1]
+                | format_text_list[2]
+                | format_text_list[3]
+                | format_text_list[4]
+                | format_text_list[5]
+                | format_text_list[6]
+                | format_text_list[7]
+                | format_text_list[8]
+                | format_text_list[9]
+                | format_text_list[10]
+                | format_text_list[11]
+                | format_text_list[12]
+                | format_text_list[13]
+                | format_text_list[14]
+                | format_text_list[15]
+                | format_text_list[16]
+                | format_text_list[17])
+            if self.panel_border[panel[1]]:
+                borders.style(self.panels[panel[0]][panel[1]],
+                              self.panel_border_styles[panel[1]])
             curses.panel.update_panels()
             self.screen.refresh()
 
             if ending == "\n" and (
-                panel_y == self.panel_coords[panel][1] and
-                    panel_x == self.panel_coords[panel][0]):
-                self.panel_coords[panel][1] += 1
+                panel_y == self.panel_coords[panel[1]][1] and
+                    panel_x == self.panel_coords[panel[1]][0]):
+                self.panel_coords[panel[1]][1] += 1
 
     def insstr(self, char="", x=None, y=None, color=None, **kwargs):
         """
@@ -282,16 +289,18 @@ class Dashport():
         """
         Creates one single panel that takes up the screen
         """
-        self.panels = layout.single_panel(
+        self.panels["layout"] = layout.single_panel(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0]),
-            scroll=kwargs.get("scroll", False))
+            scroll=kwargs.get("scroll", False),
+            height=kwargs.get("height", self.rows),
+            width=kwargs.get("width", self.cols))
 
     def split_screen_columns(self, **kwargs):
         """
         Splits the screen into two vertical panels
         """
-        self.panels = layout.split_screen_columns(
+        self.panels["layout"] = layout.split_screen_columns(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0, 0]),
             scroll=kwargs.get("scroll", False))
@@ -300,16 +309,17 @@ class Dashport():
         """
         Splits the screen into two horizontal panels
         """
-        self.panels = layout.split_screen_rows(
+        self.panels["layout"] = layout.split_screen_rows(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0, 0]),
-            scroll=kwargs.get("scroll", False))
+            scroll=kwargs.get("scroll", False),
+            center_divide_y=kwargs.get("center_divide_y"))
 
     def split_screen_quad(self, **kwargs):
         """
         Splits the screen into four quadrant panels
         """
-        self.panels = layout.quadrants(
+        self.panels["layout"] = layout.quadrants(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0, 0, 0, 0]),
             scroll=kwargs.get("scroll", False))
@@ -318,7 +328,7 @@ class Dashport():
         """
         Splits the screen into three panels
         """
-        self.panels = layout.three_panels_vert(
+        self.panels["layout"] = layout.three_panels_vert(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0, 0, 0]),
             long_side=kwargs.get("long_side", "right"),
@@ -329,7 +339,7 @@ class Dashport():
         """
         Splits the screen into three panels
         """
-        self.panels = layout.three_panels_horizontal(
+        self.panels["layout"] = layout.three_panels_horizontal(
             self, border=kwargs.get("border", False),
             border_styles=kwargs.get("border_styles", [0, 0, 0]),
             long_side=kwargs.get("long_side", "top"),

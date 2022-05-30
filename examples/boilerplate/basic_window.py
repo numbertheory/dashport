@@ -11,9 +11,9 @@ def dashport(stdscr):
     app = Dashport(stdscr, color_default=8)
     app.add_control("q", quit, case_sensitive=False)
     app.single_panel(border=True)
-    app.print("This text is bold.", A_BOLD=True, panel=0, x=1, y=1)
-    app.print("This text is reversed.", A_REVERSE=True, panel=0, x=1, y=2)
-    app.print("This text is normal.", panel=0, x=1, y=3)
+    app.print("This text is bold.", A_BOLD=True, panel="layout.0", x=1, y=1)
+    app.print("This text is reversed.", A_REVERSE=True, panel="layout.0", x=1, y=2)
+    app.print("This text is normal.", panel="layout.0", x=1, y=3)
     while True:
         app.refresh()
 
