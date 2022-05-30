@@ -36,7 +36,7 @@ Use this table to find the color scheme appropriate for your app:
 
 # Formatting text
 
-The `print` function can take various attributes to change the text. These text attributes are available in the [Python curses documentation](https://docs.python.org/3/library/curses.html#curses.ncurses_version). Use the constants listed in the table to change the text. In the example below, `A_BOLD` is set, which boldens the text. Please note, that support for these attributes is very system-dependent, and some attributes may not be available on all systems.
+The `print` function can take various attributes to change the text. These text attributes are available in the [Python curses documentation](https://docs.python.org/3/library/curses.html#curses.ncurses_version). Use the constants listed in the table to change the text. In the example below, `A_BOLD` is set, which boldens the text. Please note, that support for these attributes is very system-dependent, and some attributes may not be available on all systems. Any unavailable text formatting will be ignored by Dashport, rather than crash the program.
 
 ```
 from dashport.dash import Dashport, Info
@@ -47,7 +47,8 @@ def info(stdscr):
 
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=8)
-    app.print("This text is bold", A_BOLD=True)
+    app.print("This text is bold.", A_BOLD=True)
+    app.print("This text is italic.", A_ITALIC=True)
     while True:
         app.refresh()
 
