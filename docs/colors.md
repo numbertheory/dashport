@@ -36,7 +36,7 @@ Use this table to find the color scheme appropriate for your app:
 
 # Formatting text
 
-The `print` function can take various attributes to change the text. These text attributes are available
+The `print` function can take various attributes to change the text. These text attributes are available in the [Python curses documentation](https://docs.python.org/3/library/curses.html#curses.ncurses_version). Use the constants listed in the table to change the text. In the example below, `A_BOLD` is set, which boldens the text. Please note, that support for these attributes is very system-dependent, and some attributes may not be available on all systems.
 
 ```
 from dashport.dash import Dashport, Info

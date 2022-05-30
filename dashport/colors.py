@@ -19,8 +19,13 @@ def color_pair_integer(default, color_int=None):
 
 
 def format_text(arguments):
-    attributes = [getattr(curses, x) for x in list(arguments.keys())
-                  if x.startswith("A_")]
+    attributes = []
+    for arg in list(arguments.keys()):
+        if arg.startswith("A_"):
+            try:
+                attributes.append(getattr(curses, arg))
+            except AttributeError:
+                pass
     if len(attributes) < 18:
         attributes = attributes + ([0] * (18 - len(attributes)))
     return attributes
