@@ -44,7 +44,7 @@ The border_styles attribute can also be used to define the border styles of the 
 ```
 
 | border_styles # | Definition |
-+-------------------------------+
+|-----------------| -------------|
 | 0 | Default borders provided by curses `.border()` method |            |
 | 1 | dashes and pluses `('|', '|', '-', '-', '+', '+', '+', '+')` |
 
