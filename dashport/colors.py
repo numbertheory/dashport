@@ -16,3 +16,11 @@ def color_pair_integer(default, color_int=None):
         return curses.color_pair(default)
     else:
         return curses.color_pair(color_int)
+
+
+def format_text(arguments):
+    attributes = [getattr(curses, x) for x in list(arguments.keys())
+                  if x.startswith("A_")]
+    if len(attributes) < 18:
+        attributes = attributes + ([0] * (18 - len(attributes)))
+    return attributes

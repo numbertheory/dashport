@@ -2,7 +2,7 @@
 import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
-from dashport.colors import color_defs
+from dashport.colors import color_defs, format_text
 from dashport import layout, widgets, borders
 
 
@@ -119,6 +119,7 @@ class Dashport():
         set_x = kwargs.get("x", self.cursor_x)
         panel = kwargs.get("panel")
         ending = kwargs.get("end", "\n")
+        format_text_list = format_text(kwargs)
         if set_y == self.top_title_row:
             set_y += 1
         if set_y == self.bottom_title_row and self.scroll_screen:
@@ -145,7 +146,25 @@ class Dashport():
                 ending = ""
                 panel_y = self.panel_dimensions[panel][0] - border_offset
             self.panels[panel].addstr(panel_y, panel_x, content,
-                                      cpi(self.color_default, color))
+                                      cpi(self.color_default, color)
+                                      | format_text_list[0]
+                                      | format_text_list[1]
+                                      | format_text_list[2]
+                                      | format_text_list[3]
+                                      | format_text_list[4]
+                                      | format_text_list[5]
+                                      | format_text_list[6]
+                                      | format_text_list[7]
+                                      | format_text_list[8]
+                                      | format_text_list[9]
+                                      | format_text_list[10]
+                                      | format_text_list[11]
+                                      | format_text_list[12]
+                                      | format_text_list[13]
+                                      | format_text_list[14]
+                                      | format_text_list[15]
+                                      | format_text_list[16]
+                                      | format_text_list[17])
             if self.panel_border[panel]:
                 borders.style(self.panels[panel],
                               self.panel_border_styles[panel])
@@ -157,7 +176,7 @@ class Dashport():
                     panel_x == self.panel_coords[panel][0]):
                 self.panel_coords[panel][1] += 1
 
-    def insstr(self, char="", x=None, y=None, color=None):
+    def insstr(self, char="", x=None, y=None, color=None, **kwargs):
         """
         Add a character to the cursor position of the screen [x, y].
         Best used when you don't want the cursor to advance right when
@@ -166,24 +185,62 @@ class Dashport():
         If no cursor position is specified, the current cursor position
         is used.
         """
+        format_text_list = format_text(kwargs)
         if not x:
             x = self.cursor_x
         if not y:
             y = self.cursor_y + self.title_offset
         if not color:
             color = self.color_default
-        self.screen.insstr(y, x, char, cpi(self.color_default, color))
+        self.screen.insstr(y, x, char, cpi(self.color_default, color)
+                           | format_text_list[0]
+                           | format_text_list[1]
+                           | format_text_list[2]
+                           | format_text_list[3]
+                           | format_text_list[4]
+                           | format_text_list[5]
+                           | format_text_list[6]
+                           | format_text_list[7]
+                           | format_text_list[8]
+                           | format_text_list[9]
+                           | format_text_list[10]
+                           | format_text_list[11]
+                           | format_text_list[12]
+                           | format_text_list[13]
+                           | format_text_list[14]
+                           | format_text_list[15]
+                           | format_text_list[16]
+                           | format_text_list[17])
 
-    def addstr(self, content, x, y, color=None):
+    def addstr(self, content, x, y, color=None, **kwargs):
         """
         Adds a string to the location specified by x, y coordinates. Similar
         to this class's print method, but with no shifting of content already
         on the screen, and the cursor position does not move.
         """
+        format_text_list = format_text(kwargs)
         if not color:
             color = self.color_default
         self.screen.addstr(y + self.title_offset, x, content,
-                           cpi(self.color_default, color))
+                           cpi(self.color_default, color)
+                           | format_text_list[0]
+                           | format_text_list[1]
+                           | format_text_list[2]
+                           | format_text_list[3]
+                           | format_text_list[4]
+                           | format_text_list[5]
+                           | format_text_list[6]
+                           | format_text_list[7]
+                           | format_text_list[8]
+                           | format_text_list[9]
+                           | format_text_list[10]
+                           | format_text_list[11]
+                           | format_text_list[12]
+                           | format_text_list[13]
+                           | format_text_list[14]
+                           | format_text_list[15]
+                           | format_text_list[16]
+                           | format_text_list[17])
 
     def rectangle(self, x, y, width, height, color=None):
         """
