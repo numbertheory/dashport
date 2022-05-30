@@ -3,10 +3,6 @@ import curses
 
 
 def style(panel, border_style=None, **kwargs):
-    disable_left = kwargs.get("disable_left")
-    disable_right = kwargs.get("disable_right")
-    disable_top = kwargs.get("disable_top")
-    disable_bottom = kwargs.get("disable_left")
     if border_style == 0:
         panel.border(curses.ACS_VLINE,
                      curses.ACS_VLINE,
