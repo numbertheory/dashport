@@ -19,17 +19,25 @@ def dashport(stdscr):
                           border_styles=[0, 1, 1, None])
     app.panels[3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
     app.print("panel 0", x=1, y=1, panel=0, A_BOLD=True)
-    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2, panel=0, A_REVERSE=True)
-    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3, panel=0, A_REVERSE=True)
+    app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
+              panel=0, A_REVERSE=True)
+    app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3,
+              panel=0, A_REVERSE=True)
     app.print("panel 1", x=1, y=1, panel=1, A_BOLD=True)
-    app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2, panel=1, A_REVERSE=True)
-    app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3, panel=1, A_REVERSE=True)
+    app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2,
+              panel=1, A_REVERSE=True)
+    app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3,
+              panel=1, A_REVERSE=True)
     app.print("panel 2", x=1, y=1, panel=2, A_BOLD=True)
-    app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2, panel=2, A_REVERSE=True)
-    app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3, panel=2, A_UNDERLINE=True)
+    app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2,
+              panel=2, A_REVERSE=True)
+    app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3,
+              panel=2, A_UNDERLINE=True)
     app.print("panel 3", x=1, y=1, panel=3, A_BOLD=True)
-    app.print(f"Rows: {app.panel_dimensions[3][0]}", x=5, y=2, panel=3, A_REVERSE=True)
-    app.print(f"Columns: {app.panel_dimensions[3][1]}", x=5, y=3, panel=3, A_UNDERLINE=True)
+    app.print(f"Rows: {app.panel_dimensions[3][0]}", x=5, y=2,
+              panel=3, A_REVERSE=True)
+    app.print(f"Columns: {app.panel_dimensions[3][1]}", x=5, y=3,
+              panel=3, A_UNDERLINE=True)
     while True:
         app.refresh()
 
