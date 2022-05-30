@@ -129,7 +129,25 @@ class Dashport():
             color = self.color_default
         if not isinstance(panel, int):
             self.screen.addstr(set_y, set_x, content,
-                               cpi(self.color_default, color))
+                               cpi(self.color_default, color)
+                               | format_text_list[0]
+                               | format_text_list[1]
+                               | format_text_list[2]
+                               | format_text_list[3]
+                               | format_text_list[4]
+                               | format_text_list[5]
+                               | format_text_list[6]
+                               | format_text_list[7]
+                               | format_text_list[8]
+                               | format_text_list[9]
+                               | format_text_list[10]
+                               | format_text_list[11]
+                               | format_text_list[12]
+                               | format_text_list[13]
+                               | format_text_list[14]
+                               | format_text_list[15]
+                               | format_text_list[16]
+                               | format_text_list[17])
             if ending == "\n" and (
                 set_y == self.cursor_y + self.title_offset and
                     set_x == self.cursor_x):
