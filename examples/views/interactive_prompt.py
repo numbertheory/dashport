@@ -13,7 +13,7 @@ def dashport(stdscr):
     app.single_panel(border=True)
     app.print("This text is bold.", A_BOLD=True, panel=0, x=1, y=1)
     app.print("This text is reversed.", A_REVERSE=True, panel=0, x=1, y=2)
-    app.print("This text is normal.", panel=0, x=1, y=3)
+    app.print("This text is normal.", panel=0, x=1, y=1300)
     while True:
         app.refresh()
 
