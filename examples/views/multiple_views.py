@@ -60,7 +60,7 @@ def dashport(stdscr):
     app.add_control("q", quit, case_sensitive=False)
     app.title_bar(text="Press 4 to split 4 ways, 3 to split 3 ways, "
                        "Q to quit.",
-                  align="bottom", color=256)
+                  align="top", color=256)
     three_way_split(app)
     app.add_control("4", four_way_split)
     app.add_control("3", three_way_split)
