@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from dashport.dash import Dashport
 from dashport.run import wrap
-from dashport.characters import box_drawings
+from dashport.characters import BoxDrawing
 
 
 class Select:
@@ -56,7 +56,7 @@ def line_drawing(app, selection):
     index_of_everything = [0, 0]
     column = 3
     row = 3
-    box_drawing = box_drawings()
+    box_drawing = BoxDrawing.data()
 
     for key, value in sorted(box_drawing.items(), key=by_value):
         if index_of_everything == selection:
@@ -64,12 +64,12 @@ def line_drawing(app, selection):
                       x=column - 1,
                       y=row,
                       color=65,
-                      content=" {} ".format(chr(value)))
+                      content=" {} ".format(chr(value[0])))
         else:
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
-                      content=" {} ".format(chr(value)))
+                      content=" {} ".format(chr(value[0])))
         app.screen.refresh()
         if row >= 20:
             row = 3
