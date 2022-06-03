@@ -44,7 +44,10 @@ def move_right(app):
     projected_pos = [selector.column + 1, selector.row]
     last_cell = selector.last_cell[selector.current_view]
     check_col = projected_pos[0] <= last_cell[0]
-    check_row = projected_pos[1] <= last_cell[1]
+    if projected_pos[0] > 11:
+        check_row = projected_pos[1] <= last_cell[1]
+    else:
+        check_row = True
     if selector.column < 12 and check_col and check_row:
         selector.column += 1
 
