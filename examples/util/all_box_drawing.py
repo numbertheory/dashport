@@ -93,8 +93,7 @@ def dashport(stdscr):
     while True:
         line_drawing(app, [selector.column, selector.row])
         app.print(panel="layout.0",
-                  content="Box Drawing Group {}".format(
-                    [selector.column, selector.row]), x=1, y=1)
+                  content="Box Drawing Group", x=1, y=1)
         app.refresh()
 
 
