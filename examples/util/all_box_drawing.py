@@ -10,6 +10,12 @@ class Select:
         self.column = 0
         self.current_view = "line_drawing"
         self.last_cell = {"line_drawing": [12, 7]}
+        self.current_selection = sorted(
+            BoxDrawing.data().items(),
+            key=self.by_value)[0][0]
+
+    def by_value(self, item):
+        return item[1]
 
 
 selector = Select()
@@ -65,11 +71,13 @@ def line_drawing(app, selection):
                       y=row,
                       color=65,
                       content=" {} ".format(chr(value[0])))
+            selector.current_selection = key
         else:
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
                       content=" {} ".format(chr(value[0])))
+
         app.screen.refresh()
         if row >= 20:
             row = 3
@@ -90,10 +98,19 @@ def dashport(stdscr):
     app.add_control("KEY_DOWN", move_down)
     app.add_control("KEY_LEFT", move_left)
     app.add_control("KEY_RIGHT", move_right)
+    app.addstr(panel="layout.0",
+               content=f"{selector.current_selection}", x=1, y=32)
     while True:
+        extra_space = " " * 30
         line_drawing(app, [selector.column, selector.row])
         app.print(panel="layout.0",
                   content="Box Drawing Group", x=1, y=1)
+        app.addstr(panel="layout.0",
+                   content=" " * app.cols,
+                   x=1, y=32)
+        app.addstr(panel="layout.0",
+                   content="Dashport: dashport.BoxDrawing.char('{}'){}".format(
+                    selector.current_selection, extra_space), x=1, y=32)
         app.refresh()
 
 
