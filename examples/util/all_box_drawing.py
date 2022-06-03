@@ -60,7 +60,7 @@ def line_drawing(app, selection):
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
-                      color=256,
+                      color=65,
                       content=" {} ".format(chr(value)))
         else:
             app.print(panel="layout.0",
