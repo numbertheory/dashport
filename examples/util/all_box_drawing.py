@@ -91,21 +91,22 @@ def line_drawing(app, selection):
     python_content = "Name: {}".format(selector.current_selection)
     extra_space = " " * (app.cols - (56 + len(python_content)))
     app.print(panel="layout.0",
-              content=python_content + extra_space, x=55, y=3)
+              content=python_content + extra_space, x=2, y=24)
     app.print(panel="layout.0",
               content="HTML: &#{};".format(
                 BoxDrawing.html(selector.current_selection)),
-              x=55, y=4)
+              x=2, y=25)
     app.print(panel="layout.0",
               content="Unicode: U+{}".format(
                 BoxDrawing.unicode(selector.current_selection)),
-              x=55, y=5)
+              x=2, y=26)
 
 
 def dashport(stdscr):
     app = Dashport(stdscr)
-    height = app.rows - 16
-    app.single_panel(scroll=True, height=height, border=True)
+    height = app.rows - 1
+    app.title_bar(text="Q = quit, Tab = Next page", align="top", color=121)
+    app.single_panel(scroll=True, height=height)
     app.add_control("q", quit)
     app.add_control("KEY_UP", move_up)
     app.add_control("KEY_DOWN", move_down)
