@@ -10,9 +10,11 @@ class Select:
         self.column = 0
         self.current_view = "line_drawing"
         self.last_cell = {"line_drawing": [12, 7]}
-        self.current_selection = sorted(
+        first_key = sorted(
             BoxDrawing.data().items(),
             key=self.by_value)[0][0]
+        self.current_selection = "BoxDrawing." \
+                                 "char('{}')".format(first_key)
 
     def by_value(self, item):
         return item[1]
@@ -66,19 +68,18 @@ def line_drawing(app, selection):
 
     for key, value in sorted(box_drawing.items(), key=by_value):
         if index_of_everything == selection:
+            selector.current_selection = key
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
                       color=65,
                       content=" {} ".format(chr(value[0])))
-            selector.current_selection = key
         else:
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
                       content=" {} ".format(chr(value[0])))
 
-        app.screen.refresh()
         if row >= 20:
             row = 3
             column += 4
@@ -87,30 +88,33 @@ def line_drawing(app, selection):
         else:
             row += 2
             index_of_everything[1] += 1
+    python_content = "Name: {}".format(selector.current_selection)
+    extra_space = " " * (app.cols - (56 + len(python_content)))
+    app.print(panel="layout.0",
+              content=python_content + extra_space, x=55, y=3)
+    app.print(panel="layout.0",
+              content="HTML: &#{};".format(
+                BoxDrawing.html(selector.current_selection)),
+              x=55, y=4)
+    app.print(panel="layout.0",
+              content="Unicode: U+{}".format(
+                BoxDrawing.unicode(selector.current_selection)),
+              x=55, y=5)
 
 
 def dashport(stdscr):
     app = Dashport(stdscr)
-    height = app.rows - 4
+    height = app.rows - 16
     app.single_panel(scroll=True, height=height, border=True)
     app.add_control("q", quit)
     app.add_control("KEY_UP", move_up)
     app.add_control("KEY_DOWN", move_down)
     app.add_control("KEY_LEFT", move_left)
     app.add_control("KEY_RIGHT", move_right)
-    app.addstr(panel="layout.0",
-               content=f"{selector.current_selection}", x=1, y=32)
     while True:
-        extra_space = " " * 30
         line_drawing(app, [selector.column, selector.row])
         app.print(panel="layout.0",
                   content="Box Drawing Group", x=1, y=1)
-        app.addstr(panel="layout.0",
-                   content=" " * app.cols,
-                   x=1, y=32)
-        app.addstr(panel="layout.0",
-                   content="Dashport: dashport.BoxDrawing.char('{}'){}".format(
-                    selector.current_selection, extra_space), x=1, y=32)
         app.refresh()
 
 
