@@ -72,7 +72,7 @@ def line_drawing(app, selection):
             app.print(panel="layout.0",
                       x=column - 1,
                       y=row,
-                      color=65,
+                      color=121,
                       content=" {} ".format(chr(value[0])))
         else:
             app.print(panel="layout.0",
