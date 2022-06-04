@@ -8,15 +8,16 @@ class Select:
     def __init__(self):
         self.row = 0
         self.column = 0
-        self.current_view = "line_drawing"
+        self.current_view = "block_elements"
         self.cv_index = 0
         self.last_cell = {"line_drawing": [12, 7],
-                          "block_elements": [0, 0]}
+                          "block_elements": [3, 1]}
+        self.last_cell_values = {"line_drawing": [11, 12, 9],
+                                 "block_elements": [2, 3, 9]}
         first_key = sorted(
             BoxDrawing.data().items(),
             key=self.by_value)[0][0]
-        self.current_selection = "BoxDrawing." \
-                                 "char('{}')".format(first_key)
+        self.current_selection = first_key
 
     def by_value(self, item):
         return item[1]
@@ -41,7 +42,8 @@ def move_up(app):
 def move_down(app):
     current_pos = [selector.column, selector.row]
     last_cell = selector.last_cell[selector.current_view]
-    if selector.row < 9 and current_pos != last_cell:
+    last_cell_values = selector.last_cell_values[selector.current_view]
+    if selector.row < last_cell_values[2] and current_pos != last_cell:
         selector.row += 1
 
 
@@ -53,17 +55,19 @@ def move_left(app):
 def move_right(app):
     projected_pos = [selector.column + 1, selector.row]
     last_cell = selector.last_cell[selector.current_view]
+    last_cell_values = selector.last_cell_values[selector.current_view]
     check_col = projected_pos[0] <= last_cell[0]
-    if projected_pos[0] > 11:
+    if projected_pos[0] > last_cell_values[0]:
         check_row = projected_pos[1] <= last_cell[1]
     else:
         check_row = True
-    if selector.column < 12 and check_col and check_row:
+    if selector.column < last_cell_values[1] and check_col and check_row:
         selector.column += 1
 
 
 def change_view(app):
     app.screen.clear()
+    app.title_bar(text="Q = quit, Tab = Next page", align="bottom", color=121)
     if selector.current_view == "line_drawing":
         selector.current_view = "block_elements"
         selector.cv_index = 0
