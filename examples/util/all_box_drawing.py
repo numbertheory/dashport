@@ -67,9 +67,13 @@ def change_view(app):
     if selector.current_view == "line_drawing":
         selector.current_view = "block_elements"
         selector.cv_index = 0
+        selector.column = 0
+        selector.row = 0
     else:
         selector.current_view = "line_drawing"
         selector.cv_index = 1
+        selector.column = 0
+        selector.row = 0
 
 
 def table_drawing(app, selection, table):
