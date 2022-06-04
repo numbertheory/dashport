@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from dashport.dash import Dashport
 from dashport.run import wrap
-from dashport.characters import BoxDrawing
+from dashport.characters import BoxDrawing, BlockElements
 
 
 class Select:
@@ -9,7 +9,9 @@ class Select:
         self.row = 0
         self.column = 0
         self.current_view = "line_drawing"
-        self.last_cell = {"line_drawing": [12, 7]}
+        self.cv_index = 0
+        self.last_cell = {"line_drawing": [12, 7],
+                          "block_elements": [0, 0]}
         first_key = sorted(
             BoxDrawing.data().items(),
             key=self.by_value)[0][0]
@@ -60,13 +62,23 @@ def move_right(app):
         selector.column += 1
 
 
-def line_drawing(app, selection):
+def change_view(app):
+    app.screen.clear()
+    if selector.current_view == "line_drawing":
+        selector.current_view = "block_elements"
+        selector.cv_index = 0
+    else:
+        selector.current_view = "line_drawing"
+        selector.cv_index = 1
+
+
+def table_drawing(app, selection, table):
     index_of_everything = [0, 0]
     column = 3
     row = 3
-    box_drawing = BoxDrawing.data()
+    table_elements = table["elements"].data()
 
-    for key, value in sorted(box_drawing.items(), key=by_value):
+    for key, value in sorted(table_elements.items(), key=by_value):
         if index_of_everything == selection:
             selector.current_selection = key
             app.print(panel="layout.0",
@@ -94,28 +106,36 @@ def line_drawing(app, selection):
               content=python_content + extra_space, x=2, y=24)
     app.print(panel="layout.0",
               content="HTML: &#{};".format(
-                BoxDrawing.html(selector.current_selection)),
+                table["elements"].html(selector.current_selection)),
               x=2, y=25)
     app.print(panel="layout.0",
               content="Unicode: U+{}".format(
-                BoxDrawing.unicode(selector.current_selection)),
+                table["elements"].unicode(selector.current_selection)),
               x=2, y=26)
 
 
 def dashport(stdscr):
     app = Dashport(stdscr)
-    height = app.rows - 1
-    app.title_bar(text="Q = quit, Tab = Next page", align="top", color=121)
+    height = app.rows - 2
+    app.title_bar(text="Q = quit, Tab = Next page", align="bottom", color=121)
     app.single_panel(scroll=True, height=height)
     app.add_control("q", quit)
     app.add_control("KEY_UP", move_up)
     app.add_control("KEY_DOWN", move_down)
     app.add_control("KEY_LEFT", move_left)
     app.add_control("KEY_RIGHT", move_right)
+    app.add_control("B", change_view, case_sensitive=False)
+    table = [{"elements": BlockElements, "name": "block_elements",
+              "display_name": "Block Elements"},
+             {"elements": BoxDrawing, "name": "line_drawing",
+              "display_name": "Box Drawing"}]
     while True:
-        line_drawing(app, [selector.column, selector.row])
+        table_drawing(app, [selector.column, selector.row],
+                      table[selector.cv_index])
         app.print(panel="layout.0",
-                  content="Box Drawing Group", x=1, y=1)
+                  content="{} Group".format(
+                    table[selector.cv_index]["display_name"]),
+                  x=1, y=1)
         app.refresh()
 
 
