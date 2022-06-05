@@ -1,3 +1,7 @@
+# Boilerplate
+
+Use these examples as starters for your own projects. These examples cover the bare minimum of creating a window, writing text to the screen, and getting used to the concept of the Dashport wrapper and how the program loop works.
+
 ## basic_window
 
 ### Summary

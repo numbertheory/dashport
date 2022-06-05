@@ -1,6 +1,6 @@
 # Using Dashport
 
-This the [boilerplate](examples/boilerplate.py) code that can be used to start any application. This code won't display anything, it will just set up a curses screen, and continually refresh until the user uses Ctrl+C to break out of it. See documentation below for details on building on this boilerplate.
+This the [boilerplate](https://github.com/numbertheory/dashport/blob/main/examples/boilerplate/boilerplate.py) code that can be used to start any application. This code won't display anything, it will just set up a curses screen, and continually refresh until the user uses Ctrl+C to break out of it. See documentation below for details on building on this boilerplate.
 
 ```
 from dashport.dash import Dashport, Info
@@ -50,10 +50,10 @@ def dashport(stdscr):
 
 The coordinate system in Dashport is `x` refers to the horizontal position (the column on the screen), and y refers to the (the row on the screen).
 
-See [Add String Methods](docs/addStringMethods.md) for more information and other methods to add characters to your app's screen.
+See [Add String Methods](strings.md) for more information and other methods to add characters to your app's screen.
 
 ## Coordinate layout
-If you are familiar with the built-in Python curses library, you'll note that `x` and `y` for Dashport is switched, so that `x` refers to columns and `y` refers to rows. The origin `(0, 0)` is still the top-left of the screen, and values increase for `x` as you move right and increase for `y` as you move down the screen. Run the [explore_screen.py](examples/explore_screen.py) example to see this in action.
+If you are familiar with the built-in Python curses library, you'll note that `x` and `y` for Dashport is switched, so that `x` refers to columns and `y` refers to rows. The origin `(0, 0)` is still the top-left of the screen, and values increase for `x` as you move right and increase for `y` as you move down the screen. Run the [explore_screen.py](https://github.com/numbertheory/dashport/blob/main/examples/util/explore_screen.py) example to see this in action.
 
 This was done to make the coding experience a bit more approachable, so you can use the values of the size of the screen itself (`app.rows`, `app.cols`) to figure out the limits of whether or not a string or character can be placed.
 

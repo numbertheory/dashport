@@ -1,4 +1,4 @@
-## colors
+# Colors
 
 Color text in curses is usually done via a `color_pairs` method. With Dashport, color pairs (foreground and background) are defined with a single integer which sets both backgrounnd and foreground.
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
 Use this table to find the color scheme appropriate for your app:
 
-![color palette for dashport](color_palette.png?raw=true "Dashport Color Palette")
+![color palette for dashport](images/color_palette.png)
 
 
 # Formatting text

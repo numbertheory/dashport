@@ -1,4 +1,4 @@
-# Add String Methods
+# String Methods
 
 ## insstr
 

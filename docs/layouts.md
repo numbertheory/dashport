@@ -1,9 +1,9 @@
-# layouts
+# Layouts
 
 Layouts in Dashport can be used to divide the screen easily and make separate panels that you can use `print` to display
 text on.
 
-In the [split_screen_quad example](examples/layouts/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" string value to the print command. Each screen can only have one layout at a time, which the app stores in the app.panels dict under the key "layout".  
+In the [split_screen_quad example](https://github.com/numbertheory/dashport/blob/main/examples/layouts/split_screen_quad.py) the `split_screen_quad` method is done on the app, with `borders` enabled. You can then print to these panels, by passing in a "panel" string value to the print command. Each screen can only have one layout at a time, which the app stores in the app.panels dict under the key "layout".  
 
 Using the `print` command, select the panel, by passing in a string which tells both that print should access the "layout" key to find the panel, and the index value of the panel that should be manipulated.  Example:
 
@@ -66,6 +66,6 @@ By using `None` as a border style, the built-in borders are not used, and the pr
 
 Splitting the screen in three ways means that you can determine which side of the screen the longer panel will be on (top or bottom for horizontal splits and left or right for vertical splits), and what the width of that panel will be.
 
-When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to set the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](examples/layouts/split_screen_three_vert.py) for an example.
+When using `split_screen_three_vert`, set `long_side` to `left` or `right` to set the longer panel to the left or right, and then `long_side_width` to set the width of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_vert.py](https://github.com/numbertheory/dashport/blob/main/examples/layouts/split_screen_three_vert.py) for an example.
 
-When using `split_screen_three_horizontal`, set `long_side` to `top` or `bottom` to set the longer panel to the top or bottom, and then `long_side_height` to set the height of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_horizontal.py](examples/layouts/split_screen_three_horizontal.py) for an example.
+When using `split_screen_three_horizontal`, set `long_side` to `top` or `bottom` to set the longer panel to the top or bottom, and then `long_side_height` to set the height of that panel. The other two panels will fill the screen to compensate. See [split_screen_three_horizontal.py](https://github.com/numbertheory/dashport/blob/main/examples/layouts/split_screen_three_horizontal.py) for an example.

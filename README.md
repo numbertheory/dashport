@@ -15,5 +15,3 @@ Alternatively, use this to install from PyPI:
 ```
 pip install dashport
 ```
-
-This is still a new repo, so waiting to see if it's worth it to publish to PyPI.

@@ -1,4 +1,4 @@
-# widgets
+# Widgets
 
 ## title_bar
 
