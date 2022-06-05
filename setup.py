@@ -11,6 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='dashport',
+    setup_requires=['setuptools_scm'],
     use_scm_version=True,
     description='Dashport curses wrapper for Python',
     long_description=readme,
