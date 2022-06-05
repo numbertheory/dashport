@@ -1,17 +1,16 @@
 #! /usr/bin/env python3
 
 from setuptools import setup, find_packages
-
-
-with open('README.md') as f:
-    readme = f.read()
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='dashport',
     setup_requires=['setuptools_scm'],
     use_scm_version=True,
     description='Dashport curses wrapper for Python',
-    long_description=readme,
+    long_description=long_description,
     author='JP Etcheber',
     author_email='jetcheber@gmail.com',
     url='https://github.com/numbertheory/dashport',
