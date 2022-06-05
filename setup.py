@@ -10,6 +10,7 @@ setup(
     setup_requires=['setuptools_scm'],
     use_scm_version=True,
     description='Dashport curses wrapper for Python',
+    long_description_content_type="text/markdown",
     long_description=long_description,
     author='JP Etcheber',
     author_email='jetcheber@gmail.com',
