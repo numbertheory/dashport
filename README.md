@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/dashport.svg)](https://badge.fury.io/py/dashport)[![Documentation Status](https://readthedocs.org/projects/dashport/badge/?version=latest)](https://dashport.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/dashport.svg)](https://badge.fury.io/py/dashport) [![Documentation Status](https://readthedocs.org/projects/dashport/badge/?version=latest)](https://dashport.readthedocs.io/en/latest/?badge=latest)
 
 # dashport
 
