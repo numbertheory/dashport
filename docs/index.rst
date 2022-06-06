@@ -6,8 +6,7 @@
 Dashport
 ========
 
-Dashport is a wrapper for Python's `curses <https://docs.python.org/3/library/curses.html>`_ library to help
-developers easily make curses-based applications.
+`Dashport <https://github.com/numbertheory/dashport>`_ is a wrapper for Python's `curses <https://docs.python.org/3/library/curses.html>`_ library to enable developers to easily make curses-based applications.
 
 .. toctree::
    :maxdepth: 2
