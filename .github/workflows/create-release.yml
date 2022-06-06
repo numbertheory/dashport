@@ -12,6 +12,7 @@ jobs:
     runs:
       using: "composite"
       steps:
-        - id: commits-to-be-released
+        - uses: actions/checkout@master
+          id: commits-to-be-released
           run: echo "::set-output name=commits-list::$(bash create_release.sh)"
           shell: bash
