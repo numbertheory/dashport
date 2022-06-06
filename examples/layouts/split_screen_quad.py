@@ -14,8 +14,9 @@ def quit(app):
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=176)
     app.add_control("q", quit, case_sensitive=False)
-    app.split_screen_quad(border=[True, False, True, True],
-                          border_styles=[0, 1, 1, None])
+    app.layout("quadrants",
+               border=[True, False, True, True],
+               border_styles=[0, 1, 1, None])
     app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
     app.print("panel 0", x=1, y=1, panel="layout.0",
               A_BOLD=True, A_ITALIC=True)

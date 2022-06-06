@@ -10,7 +10,7 @@ def quit():
 
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=8)
-    app.single_panel(border=False, scroll=True, height=app.rows - 1)
+    app.layout("single_panel", border=False, scroll=True, height=app.rows - 1)
     app.commands = []
     while True:
         while True:

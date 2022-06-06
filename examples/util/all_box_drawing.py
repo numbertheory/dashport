@@ -126,7 +126,7 @@ def dashport(stdscr):
     app = Dashport(stdscr)
     height = app.rows - 2
     app.title_bar(text="Q = quit, B = Next page", align="bottom", color=121)
-    app.single_panel(scroll=True, height=height)
+    app.layout("single_panel", scroll=True, height=height)
     app.add_control("q", quit)
     app.add_control("KEY_UP", move_up)
     app.add_control("KEY_DOWN", move_down)

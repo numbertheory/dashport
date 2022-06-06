@@ -12,7 +12,7 @@ def quit(app):
 
 
 def four_way_split(app):
-    app.split_screen_quad(border=True)
+    app.layout("quadrants", border=True, height=app.rows - 2)
     app.print("panel 0", panel="layout.0")
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
               panel="layout.0")
@@ -36,8 +36,8 @@ def four_way_split(app):
 
 
 def three_way_split(app):
-    app.split_screen_three_vert(border=True, long_side="right",
-                                long_side_width=100)
+    app.layout("three_panels_vert", border=True, long_side="right",
+               long_side_width=100)
     app.print("panel 0", panel="layout.0")
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
               panel="layout.0")

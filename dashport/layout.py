@@ -5,7 +5,7 @@ import curses
 def single_panel(app, **kwargs):
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0])
-    height = kwargs.get("height", app.rows)
+    height = kwargs.get("height", app.rows - app.title_offset)
     width = kwargs.get("width", app.cols)
     if isinstance(border, bool):
         border = [border]
@@ -29,11 +29,13 @@ def split_screen_columns(app, **kwargs):
     border_styles = kwargs.get("border_styles", [0, 0])
     if isinstance(border, bool):
         border = [border] * 2
-    win1, panel1 = app.panel(height=app.rows, length=split_cols, y=0, x=0,
+    win1, panel1 = app.panel(height=app.rows - app.title_offset,
+                             length=split_cols, y=0, x=0,
                              scroll=kwargs.get("scroll", False),
                              border=border[0],
                              border_style=border_styles[0])
-    win2, panel2 = app.panel(height=app.rows, length=split_cols,
+    win2, panel2 = app.panel(height=app.rows - app.title_offset,
+                             length=split_cols,
                              y=0,
                              x=split_cols,
                              scroll=kwargs.get("scroll", False),
@@ -48,7 +50,7 @@ def split_screen_columns(app, **kwargs):
 
 def split_screen_rows(app, **kwargs):
     if not kwargs.get("center_divide_y"):
-        split_rows = [int(app.rows / 2), int(app.rows / 2)]
+        split_rows = [int(app.rows / 2) - app.title_offset, int(app.rows / 2)]
     else:
         split_rows = [int(kwargs.get("center_divide_y")),
                       app.rows - int(kwargs.get("center_divide_y"))]
@@ -74,7 +76,7 @@ def split_screen_rows(app, **kwargs):
 
 
 def quadrants(app, **kwargs):
-    split_rows = int(app.rows / 2)
+    split_rows = int(app.rows / 2) - app.title_offset
     split_cols = int(app.cols / 2)
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0, 0, 0, 0])
@@ -109,7 +111,7 @@ def quadrants(app, **kwargs):
 
 
 def three_panels_vert(app, **kwargs):
-    split_rows = int(app.rows / 2)
+    split_rows = int(app.rows / 2) - app.title_offset
     split_cols = int(app.cols / 2)
     long_side = kwargs.get("long_side", "right")
     border = kwargs.get("border", False)
@@ -164,7 +166,7 @@ def three_panels_vert(app, **kwargs):
 
 
 def three_panels_horizontal(app, **kwargs):
-    split_rows = int(app.rows / 2)
+    split_rows = int(app.rows / 2) - app.title_offset
     split_cols = int(app.cols / 2)
     long_side = kwargs.get("long_side", "top")
     border = kwargs.get("border", False)
