@@ -1,5 +1,6 @@
 name: Create release on GitHub
 description: Do the GitHub Release
+on: push
 outputs:
   commits-list:
     description: Commits to be released
