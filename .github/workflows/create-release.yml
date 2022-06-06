@@ -7,13 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      outputs:
-        commits-list:
-          description: Commits to be released
-          value: ${{ steps.commits-to-be-released.outputs.commits-list }}
-      runs:
-        using: "composite"
-        steps:
-            id: commits-to-be-released
-            run: echo "::set-output name=commits-list::$(bash create_release.sh)"
-            shell: bash
+      - name: "Echo out commits"
+        outputs:
+          commits-list:
+            description: Commits to be released
+            value: ${{ steps.commits-to-be-released.outputs.commits-list }}
+        runs:
+          using: "composite"
+          steps:
+              id: commits-to-be-released
+              run: echo "::set-output name=commits-list::$(bash create_release.sh)"
+              shell: bash
