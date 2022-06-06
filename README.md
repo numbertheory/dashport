@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/dashport/badge/?version=latest)](https://dashport.readthedocs.io/en/latest/?badge=latest)
+
 # dashport
 
 Dashport - An easy and safe way to use curses
