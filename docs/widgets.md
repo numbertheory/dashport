@@ -20,7 +20,7 @@ def info(stdscr):
 
 def dashport(stdscr):
     app = Dashport(stdscr)
-    app.title_bar(text="This is the title bar", color=256)
+    app.widget("title_bar", text="This is the title bar", color=256)
     app.print(content="this is text", x=0, y=0)
     while True:
         app.refresh()

@@ -20,8 +20,8 @@ def dashport(stdscr):
     app.add_control("q", quit)
     rows, cols = app.screen.getmaxyx()
     app.layout("three_panels_vert", border=True, scroll=True)
-    app.title_bar(text=f"Title {app.cursor_x},{app.cursor_y}",
-                  align="top", color=256)
+    app.widget("title_bar", text=f"Title {app.cursor_x},{app.cursor_y}",
+               align="top", color=256)
     for i in range(0, 1000):
         app.print(content=f"Line: {i}", x=1, y=i+1, panel="layout.0")
 

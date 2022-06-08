@@ -54,12 +54,6 @@ class Dashport():
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
 
-    def title_bar(self, **kwargs):
-        text = kwargs.get("text", "")
-        align = kwargs.get("align", "top")
-        color = kwargs.get("color", self.color_default)
-        widgets.title_bar(self, text=text, align=align, color=color)
-
     def add_control(self, control_key, func, case_sensitive=True):
         """
         Binds a keyboard key to a function in the program.
@@ -287,3 +281,6 @@ class Dashport():
 
     def layout(self, layout_name, **kwargs):
         self.panels["layout"] = getattr(layout, layout_name)(self, **kwargs)
+
+    def widget(self, widget_name, **kwargs):
+        getattr(widgets, widget_name)(self, **kwargs)
