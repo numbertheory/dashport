@@ -17,17 +17,17 @@ def dashport(stdscr):
     app.layout("three_panels_vert",
                border=True, long_side="right",
                long_side_width=20)
-    app.print("panel 0", x=1, y=1, panel="layout.0")
+    app.print("panel layout.0", x=1, y=1, panel="layout.0")
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
               panel="layout.0")
     app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3,
               panel="layout.0")
-    app.print("panel 1", x=1, y=1, panel="layout.1")
+    app.print("panel layout.1", x=1, y=1, panel="layout.1")
     app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2,
               panel="layout.1")
     app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3,
               panel="layout.1")
-    app.print("panel 2", x=1, y=1, panel="layout.2")
+    app.print("panel layout.2", x=1, y=1, panel="layout.2")
     app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2,
               panel="layout.2")
     app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3,

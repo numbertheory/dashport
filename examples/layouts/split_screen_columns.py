@@ -15,8 +15,8 @@ def dashport(stdscr):
     app = Dashport(stdscr, color_default=17)
     app.add_control("q", quit, case_sensitive=False)
     app.layout("split_screen_columns", border=True)
-    app.print("hello", x=1, y=1, panel="layout.1")
-    app.print("world", x=1, y=2, panel="layout.1")
+    app.print("panel: layout.0", x=1, y=1, panel="layout.0", color=176)
+    app.print("panel: layout.1", x=1, y=1, panel="layout.1", color=176)
     while True:
         app.refresh()
 

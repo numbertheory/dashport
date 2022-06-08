@@ -18,25 +18,25 @@ def dashport(stdscr):
                border=[True, False, True, True],
                border_styles=[0, 1, 1, None])
     app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
-    app.print("panel 0", x=1, y=1, panel="layout.0",
+    app.print("panel: layout.0", x=1, y=1, panel="layout.0",
               A_BOLD=True, A_ITALIC=True)
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
               panel="layout.0", A_REVERSE=True)
     app.print(f"Columns: {app.panel_dimensions[0][1]}", x=5, y=3,
               panel="layout.0", A_REVERSE=True)
-    app.print("panel 1", x=1, y=1, panel="layout.1",
+    app.print("panel: layout.1", x=1, y=1, panel="layout.1",
               A_BOLD=True, A_ITALIC=True)
     app.print(f"Rows: {app.panel_dimensions[1][0]}", x=5, y=2,
               panel="layout.1", A_REVERSE=True)
     app.print(f"Columns: {app.panel_dimensions[1][1]}", x=5, y=3,
               panel="layout.1", A_REVERSE=True)
-    app.print("panel 2", x=1, y=1, panel="layout.2",
+    app.print("panel: layout.2", x=1, y=1, panel="layout.2",
               A_BOLD=True, A_ITALIC=True)
     app.print(f"Rows: {app.panel_dimensions[2][0]}", x=5, y=2,
               panel="layout.2", A_REVERSE=True)
     app.print(f"Columns: {app.panel_dimensions[2][1]}", x=5, y=3,
               panel="layout.2", A_UNDERLINE=True)
-    app.print("panel 3", x=1, y=1, panel="layout.3",
+    app.print("panel: layout.3", x=1, y=1, panel="layout.3",
               A_BOLD=True, A_ITALIC=True)
     app.print(f"Rows: {app.panel_dimensions[3][0]}", x=5, y=2,
               panel="layout.3", A_REVERSE=True)
