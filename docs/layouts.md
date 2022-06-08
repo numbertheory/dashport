@@ -56,11 +56,62 @@ app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
 
 By using `None` as a border style, the built-in borders are not used, and the program can then manually provide a border style, using the [native curses method](https://docs.python.org/3/library/curses.html#curses.window.border). The panels are all in the `app.panels` attribute as a list, so borders can be set manually for any panel that exists. To disable a border you've created manually, simply define that section of the border with a space character.
 
+Finally, there is also a `custom_border` function available in Dashport Borders which makes custom borders using unicode characters a bit more flexible than what the native curses method allows. Borders in the native curses method cannot represent a lot of unicode characters, due to the way the characters are handled in ncurses. Using dashport, you can set a list of 8 characters to represent the upper left, upper right, lower left, lower right, left vertical, right vertical, top horizontal, and bottom horizontal characters and apply that to any panel on the screen.
+
+In the example below (from the [custom_borders.py](examples/layouts/custom_borders,py) example), the border_characters list is using the import of BoxDrawing, aliased as boxes, to get the exact characters needed, and then passing that, with the panel, into the `custom_border` function.
+
+```
+#!/usr/bin/env python3
+from dashport.dash import Dashport
+from dashport.run import wrap
+from dashport.borders import custom_border
+from dashport.characters import BoxDrawing as boxes
+
+
+def quit(app):
+    exit(0)
+
+
+def dashport(stdscr):
+    app = Dashport(stdscr, color_default=176)
+    app.add_control("q", quit, case_sensitive=False)
+    app.layout("single_panel")
+    border_characters = [
+            chr(boxes.html("double_down_and_right")),  # upper left
+            chr(boxes.html("double_down_and_left")),   # upper right
+            chr(boxes.html("double_up_and_right")),    # lower left
+            chr(boxes.html("double_up_and_left")),     # lower right
+            chr(boxes.html("double_vertical")),        # left vertical
+            chr(boxes.html("double_vertical")),        # right vertical
+            chr(boxes.html("double_horizontal")),      # top horizontal
+            chr(boxes.html("double_horizontal"))       # bottom horizontal
+    ]
+    custom_border(app.panels["layout"][0], border_characters)
+    app.print("panel 0", x=5, y=2, panel="layout.0")
+    app.print(f"Rows: {app.panel_dimensions[0][0]}",
+              x=5, y=3, panel="layout.0")
+    app.print(f"Columns: {app.panel_dimensions[0][1]}",
+              x=5, y=4, panel="layout.0")
+
+    while True:
+        app.refresh()
+
+
+if __name__ == '__main__':
+    wrap(dashport)
+
+```
+
+The built in border styles that are available through the dashport library are shown here:
+
 | border_styles # | Definition |
 |-----------------| -------------|
 | 0 | Default borders provided by curses `.border()` method |            |
 | 1 | dashes and pluses `('\|', '\|', '-', '-', '+', '+', '+', '+')` |
 | 2 | slashes no corners `('\\', '/', '=', '=', ' ', ' ', ' ', ' ')` |
+| 3 | double box drawing `('║' ,'║', '═', '═', '╔', '╗', '╚', '╝' )` |
+
+Please note, that you can't use all of these characters in the native curses method, and if you do want to define your own borders, it's best to use chr(<html-entity-code>) to define exactly which character it should be.
 
 # Three way splits
 

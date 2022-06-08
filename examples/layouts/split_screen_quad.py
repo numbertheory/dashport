@@ -16,8 +16,8 @@ def dashport(stdscr):
     app.add_control("q", quit, case_sensitive=False)
     app.layout("quadrants",
                border=[True, False, True, True],
-               border_styles=[0, 1, 1, None])
-    app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
+               border_styles=[0, 1, 1, 3])
+    # app.panels["layout"][3].border('M', 'M', '=', '=', ' ', ' ', ' ', ' ')
     app.print("panel: layout.0", x=1, y=1, panel="layout.0",
               A_BOLD=True, A_ITALIC=True)
     app.print(f"Rows: {app.panel_dimensions[0][0]}", x=5, y=2,
