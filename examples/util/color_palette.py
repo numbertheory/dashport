@@ -18,35 +18,36 @@ def info(stdscr):
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=9)
     app.add_control("q", quit, case_sensitive=False)
-    for j in range(1, 33):
-        app.print(f"Color {str(j)}", x=0, color=j)
+    color_names = list(app.color_names.keys())
+    for j in range(1, 34):
+        app.print(f"{color_names[j]}", x=0, color=color_names[j])
     app.cursor_y = 0
-    for j in range(33, 65):
-        app.print(f"Color {str(j)}", x=10, color=j)
+    for j in range(34, 67):
+        app.print(f"{color_names[j]}", x=20, color=color_names[j])
         app.cursor_y += 1
     app.cursor_y = 0
-    for j in range(65, 97):
-        app.print(f"Color {str(j)}", x=20, color=j)
+    for j in range(67, 99):
+       app.print(f"{color_names[j]}", x=40, color=color_names[j])
+       app.cursor_y += 1
+    app.cursor_y = 0
+    for j in range(99, 131):
+        app.print(f"{color_names[j]}", x=60, color=color_names[j])
         app.cursor_y += 1
     app.cursor_y = 0
-    for j in range(97, 129):
-        app.print(f"Color {str(j)}", x=30, color=j)
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(129, 161):
-        app.print(f"Color {str(j)}", x=40, color=j)
+    for j in range(131, 163):
+        app.print(f"{color_names[j]}", x=80, color=color_names[j])
         app.cursor_y += 1
     app.cursor_y = 0
     for j in range(161, 193):
-        app.print(f"Color {str(j)}", x=50, color=j)
+        app.print(f"{color_names[j]}", x=100, color=color_names[j])
         app.cursor_y += 1
     app.cursor_y = 0
     for j in range(193, 225):
-        app.print(f"Color {str(j)}", x=60, color=j)
+        app.print(f"{color_names[j]}", x=120, color=color_names[j])
         app.cursor_y += 1
     app.cursor_y = 0
-    for j in range(225, 257):
-        app.print(f"Color {str(j)}", x=70, color=j)
+    for j in range(225, 255):
+        app.print(f"{color_names[j]}", x=140, color=color_names[j])
         app.cursor_y += 1
     while True:
         app.refresh()

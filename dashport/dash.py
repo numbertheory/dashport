@@ -2,7 +2,7 @@
 import curses
 import curses.panel
 from dashport.colors import color_pair_integer as cpi
-from dashport.colors import color_defs, format_text
+from dashport.colors import color_names, format_text
 from dashport import layout, widgets, borders
 
 
@@ -26,7 +26,7 @@ class Dashport():
     def __init__(self, stdscr, **kwargs):
         self.screen = stdscr
         self.title_bottom_offset = 0
-        self.cursor = self.curs_set(kwargs.get("cursor", 0))
+        self.curs_set(kwargs.get("cursor", 0))
         self.rows, self.cols = self.screen.getmaxyx()
         self.window = curses.newwin(self.rows + 1, self.cols)
         self.controls = dict()
@@ -49,7 +49,7 @@ class Dashport():
         self.screen.setscrreg(0, self.rows - 1)
         curses.start_color()
         curses.use_default_colors()
-        color_defs()
+        self.color_names = color_names(kwargs.get("color_names"))
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
@@ -127,6 +127,8 @@ class Dashport():
             ending = ""
         if not color:
             color = self.color_default
+        elif isinstance(color, str):
+            color = self.color_names[color]
         if not isinstance(panel, list):
             self.screen.addstr(set_y, set_x, content,
                                cpi(self.color_default, color)
