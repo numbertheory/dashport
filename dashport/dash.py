@@ -49,7 +49,7 @@ class Dashport():
         self.screen.setscrreg(0, self.rows - 1)
         curses.start_color()
         curses.use_default_colors()
-        self.color_names = color_names(kwargs.get("color_names"))
+        self.color_names, self.color_backgrounds = color_names(kwargs.get("color_names"))
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
@@ -213,6 +213,8 @@ class Dashport():
             y = self.cursor_y + self.title_offset
         if not color:
             color = self.color_default
+        elif isinstance(color, str):
+            color = self.color_names[color]
         self.screen.insstr(y, x, char, cpi(self.color_default, color)
                            | format_text_list[0]
                            | format_text_list[1]
@@ -242,6 +244,8 @@ class Dashport():
         format_text_list = format_text(kwargs)
         if not color:
             color = self.color_default
+        elif isinstance(color, str):
+            color = self.color_names[color]
         self.screen.addstr(y + self.title_offset, x, content,
                            cpi(self.color_default, color)
                            | format_text_list[0]

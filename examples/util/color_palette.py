@@ -1,13 +1,92 @@
 #!/usr/bin/env python3
 from dashport.dash import Dashport, Info
 from dashport.run import wrap
+from dashport.characters import BoxDrawing
 
 """
-This demo needs at least 80 columns and 32 lines to work.
+This demo needs at least 80 columns and 25 lines to work.
 """
 
 
-def quit(*args):
+def set_range(app, custom_range):
+    app.cursor_y = 0
+    color_names = list(app.color_names.keys())
+    app.widget("title_bar", text="Color Palette Test Application".center(app.cols, " "), color="white_on_red")
+    app.layout("split_screen_columns", border=[False, True], center_divide_x=21)
+    app.panels["layout"][1].clear()
+    app.print("BACKGROUND".center(20, " "), x=0, y=0, panel="layout.0", color="black_on_white")
+    app.print(BoxDrawing.char("double_horizontal") * 20, x=0, y=1, panel="layout.0")
+    panel_list_y = 2
+    for background in app.color_backgrounds:
+        app.print(f"{background}", x=1, y=panel_list_y, panel="layout.0")
+        panel_list_y += 1
+    for j in range(custom_range[0], custom_range[1]):
+        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 1, color=color_names[j], panel="layout.1")
+        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 1, color=color_names[j], panel="layout.1", A_REVERSE=True)
+        app.cursor_y += 1
+
+
+def default_range(app):
+    set_range(app, [1, 17])
+
+
+def white_range(app):
+    set_range(app, [17, 34])
+
+
+def black_range(app):
+    set_range(app, [34, 51])
+
+
+def silver_range(app):
+    set_range(app, [51, 68])
+
+
+def grey_range(app):
+    set_range(app, [68, 85])
+
+
+def red_range(app):
+    set_range(app, [85, 102])
+
+
+def lime_range(app):
+    set_range(app, [102, 119])
+
+
+def yellow_range(app):
+    set_range(app, [119, 136])
+
+
+def blue_range(app):
+    set_range(app, [136, 153])
+
+
+def fuchsia_range(app):
+    set_range(app, [153, 170])
+
+
+def aqua_range(app):
+    set_range(app, [170, 187])
+
+
+def maroon_range(app):
+    set_range(app, [187, 204])
+
+
+def green_range(app):
+    set_range(app, [204, 221])
+
+
+def navy_range(app):
+    set_range(app, [221, 238])
+
+
+def purple_range(app):
+    set_range(app, [238, 255])
+
+
+def exit_program(*args):
     exit(0)
 
 
@@ -17,38 +96,24 @@ def info(stdscr):
 
 def dashport(stdscr):
     app = Dashport(stdscr, color_default=9)
-    app.add_control("q", quit, case_sensitive=False)
-    color_names = list(app.color_names.keys())
-    for j in range(1, 34):
-        app.print(f"{color_names[j]}", x=0, color=color_names[j])
-    app.cursor_y = 0
-    for j in range(34, 67):
-        app.print(f"{color_names[j]}", x=20, color=color_names[j])
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(67, 99):
-       app.print(f"{color_names[j]}", x=40, color=color_names[j])
-       app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(99, 131):
-        app.print(f"{color_names[j]}", x=60, color=color_names[j])
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(131, 163):
-        app.print(f"{color_names[j]}", x=80, color=color_names[j])
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(161, 193):
-        app.print(f"{color_names[j]}", x=100, color=color_names[j])
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(193, 225):
-        app.print(f"{color_names[j]}", x=120, color=color_names[j])
-        app.cursor_y += 1
-    app.cursor_y = 0
-    for j in range(225, 255):
-        app.print(f"{color_names[j]}", x=140, color=color_names[j])
-        app.cursor_y += 1
+    app.add_control("q", exit_program, case_sensitive=False)
+    app.set_color_range = [1, 17]
+    app.add_control("A", default_range, case_sensitive=False)
+    app.add_control("B", white_range, case_sensitive=False)
+    app.add_control("C", black_range, case_sensitive=False)
+    app.add_control("D", silver_range, case_sensitive=False)
+    app.add_control("E", grey_range, case_sensitive=False)
+    app.add_control("F", red_range, case_sensitive=False)
+    app.add_control("G", lime_range, case_sensitive=False)
+    app.add_control("H", yellow_range, case_sensitive=False)
+    app.add_control("I", blue_range, case_sensitive=False)
+    app.add_control("J", fuchsia_range, case_sensitive=False)
+    app.add_control("K", aqua_range, case_sensitive=False)
+    app.add_control("L", maroon_range, case_sensitive=False)
+    app.add_control("M", green_range, case_sensitive=False)
+    app.add_control("N", navy_range, case_sensitive=False)
+    app.add_control("O", purple_range, case_sensitive=False)
+    default_range(app)
     while True:
         app.refresh()
 

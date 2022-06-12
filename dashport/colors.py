@@ -19,15 +19,14 @@ def color_names(color_backgrounds=None):
                              "black": 0, "silver": 7, "grey": 8,
                              "red": 9, "lime": 10, "yellow": 11,
                              "blue": 12, "fuchsia": 13, "aqua": 14,
-                             "maroon": 1, "green": 2, "navy": 4,
-                             "purple": 5}
+                             "maroon": 1, "green": 2, "navy": 4, "purple": 5}
     color_index = 1
     color_dict = dict()
     for name in list(color_backgrounds.keys()):
         for k in range(-1, 16):
             color_dict = color_foregrounds(color_index, color_backgrounds[name], color_dict, name)
         color_index += 17
-    return color_dict
+    return color_dict, color_backgrounds
 
 
 def color_foregrounds(color_index, color_int_background, color_dict, color_str_background):

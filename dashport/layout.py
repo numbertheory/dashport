@@ -35,7 +35,7 @@ def split_screen_columns(app, **kwargs):
                              border=border[0],
                              border_style=border_styles[0])
     win2, panel2 = app.panel(height=app.rows - app.title_offset,
-                             length=split_cols,
+                             length=app.cols - split_cols,
                              y=0,
                              x=split_cols,
                              scroll=kwargs.get("scroll", False),
