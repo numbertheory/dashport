@@ -20,9 +20,15 @@ def set_range(app, custom_range):
     for background in app.color_backgrounds:
         app.print(f"{background}", x=1, y=panel_list_y, panel="layout.0")
         panel_list_y += 1
+    app.print("A_NORMAL", x=1, y=1, panel="layout.1")
+    app.print("A_REVERSE", x=22, y=1, panel="layout.1")
+    app.print("A_BOLD", x=44, y=1, panel="layout.1")
+    app.print("A_ITALIC", x=66, y=1, panel="layout.1")
     for j in range(custom_range[0], custom_range[1]):
-        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 1, color=color_names[j], panel="layout.1")
-        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 1, color=color_names[j], panel="layout.1", A_REVERSE=True)
+        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 2, color=color_names[j], panel="layout.1")
+        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_REVERSE=True)
+        app.print(f"{color_names[j]}", x=44, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_BOLD=True)
+        app.print(f"{color_names[j]}", x=66, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_ITALIC=True)
         app.cursor_y += 1
 
 
