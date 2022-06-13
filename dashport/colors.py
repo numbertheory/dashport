@@ -41,10 +41,13 @@ def color_foregrounds(color_index, color_int_background, color_dict, color_str_b
     return color_dict
 
 
-
-def color_pair_integer(default, color_int=None):
-    if not color_int:
-        return curses.color_pair(default)
+def color_pair_integer(app, color_int=None):
+    if not color_int and not app.color_default:
+        return curses.color_pair(0)
+    elif not color_int:
+        return curses.color_pair(app.color_default)
+    elif isinstance(color_int, str):
+        return curses.color_pair(app.color_names[color_int])
     else:
         return curses.color_pair(color_int)
 

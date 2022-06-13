@@ -32,7 +32,6 @@ class Dashport():
         self.controls = dict()
         self.cursor_x = 0
         self.cursor_y = 0
-        self.color_default = kwargs.get("color_default", 8)
         self.panels = dict()
         self.panel_dimensions = []
         self.panel_scroll = []
@@ -49,7 +48,13 @@ class Dashport():
         self.screen.setscrreg(0, self.rows - 1)
         curses.start_color()
         curses.use_default_colors()
-        self.color_names, self.color_backgrounds = color_names(kwargs.get("color_names"))
+        if kwargs.get("color_map", True):
+            self.color_names, self.color_backgrounds = color_names(kwargs.get("color_names"))
+        else:
+            self.color_names = dict()
+            self.color_backgrounds = []
+        self.color_default = kwargs.get("color_default", None)
+
 
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
@@ -131,7 +136,7 @@ class Dashport():
             color = self.color_names[color]
         if not isinstance(panel, list):
             self.screen.addstr(set_y, set_x, content,
-                               cpi(self.color_default, color)
+                               cpi(self, color)
                                | format_text_list[0]
                                | format_text_list[1]
                                | format_text_list[2]
@@ -167,7 +172,7 @@ class Dashport():
                 panel_y = self.panel_dimensions[panel[1]][0] - border_offset
             self.panels[panel[0]][panel[1]].addstr(
                 panel_y, panel_x, content,
-                cpi(self.color_default, color)
+                cpi(self, color)
                 | format_text_list[0]
                 | format_text_list[1]
                 | format_text_list[2]
@@ -215,7 +220,7 @@ class Dashport():
             color = self.color_default
         elif isinstance(color, str):
             color = self.color_names[color]
-        self.screen.insstr(y, x, char, cpi(self.color_default, color)
+        self.screen.insstr(y, x, char, cpi(self, color)
                            | format_text_list[0]
                            | format_text_list[1]
                            | format_text_list[2]
@@ -247,7 +252,7 @@ class Dashport():
         elif isinstance(color, str):
             color = self.color_names[color]
         self.screen.addstr(y + self.title_offset, x, content,
-                           cpi(self.color_default, color)
+                           cpi(self, color)
                            | format_text_list[0]
                            | format_text_list[1]
                            | format_text_list[2]
@@ -274,7 +279,7 @@ class Dashport():
         for j in range(y + self.title_offset,
                        y + height - self.title_bottom_offset):
             for i in range(x, x + width):
-                self.screen.addstr(j, i, " ", cpi(self.color_default, color))
+                self.screen.addstr(j, i, " ", cpi(self, color))
 
     def background(self, color):
         """
@@ -283,7 +288,7 @@ class Dashport():
         for j in range(0 + self.title_offset,
                        self.rows - self.title_bottom_offset):
             for i in range(0, self.cols):
-                self.screen.insstr(j, i, " ", cpi(self.color_default, color))
+                self.screen.insstr(j, i, " ", cpi(self, color))
 
     def layout(self, layout_name, **kwargs):
         self.panels["layout"] = getattr(layout, layout_name)(self, **kwargs)
