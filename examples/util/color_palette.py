@@ -4,7 +4,7 @@ from dashport.run import wrap
 from dashport.characters import BoxDrawing
 
 """
-This demo needs at least 80 columns and 25 lines to work.
+This demo needs at least 110 columns and 40 lines to work.
 """
 
 
@@ -18,22 +18,41 @@ def set_range(app, custom_range):
     app.print(BoxDrawing.char("double_horizontal") * 20, x=0, y=1, panel="layout.0")
     panel_list_y = 2
     for background in app.color_backgrounds:
-        app.print(f"{background}", x=1, y=panel_list_y, panel="layout.0")
+        if background == app.selected_background:
+            app.print(f">{background}".ljust(20), x=0, y=panel_list_y, panel="layout.0", A_REVERSE=True)
+        else:
+            app.print(f"{background}", x=1, y=panel_list_y, panel="layout.0")
         panel_list_y += 1
     app.print("A_NORMAL", x=1, y=1, panel="layout.1")
     app.print("A_REVERSE", x=22, y=1, panel="layout.1")
     app.print("A_BOLD", x=44, y=1, panel="layout.1")
     app.print("A_ITALIC", x=66, y=1, panel="layout.1")
+    app.print("A_DIM", x=1, y=20, panel="layout.1")
     for j in range(custom_range[0], custom_range[1]):
         app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 2, color=color_names[j], panel="layout.1")
         app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_REVERSE=True)
         app.print(f"{color_names[j]}", x=44, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_BOLD=True)
         app.print(f"{color_names[j]}", x=66, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_ITALIC=True)
+        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 21, color=color_names[j], panel="layout.1", A_DIM=True)
         app.cursor_y += 1
 
 
 def default_range(app):
     set_range(app, [1, 17])
+
+
+def next_background(app):
+    backgrounds = list(app.color_backgrounds.keys())
+    if app.selected_background != "purple":
+        current_index = backgrounds.index(app.selected_background)
+        app.selected_background = backgrounds[current_index+1]
+
+
+def prev_background(app):
+    backgrounds = list(app.color_backgrounds.keys())
+    if app.selected_background != "default":
+        current_index = backgrounds.index(app.selected_background)
+        app.selected_background = backgrounds[current_index - 1]
 
 
 def white_range(app):
@@ -104,6 +123,9 @@ def dashport(stdscr):
     app = Dashport(stdscr, color_default=9)
     app.add_control("q", exit_program, case_sensitive=False)
     app.set_color_range = [1, 17]
+    app.selected_background = "default"
+    app.add_control("KEY_DOWN", next_background)
+    app.add_control("KEY_UP", prev_background)
     app.add_control("A", default_range, case_sensitive=False)
     app.add_control("B", white_range, case_sensitive=False)
     app.add_control("C", black_range, case_sensitive=False)
@@ -119,8 +141,8 @@ def dashport(stdscr):
     app.add_control("M", green_range, case_sensitive=False)
     app.add_control("N", navy_range, case_sensitive=False)
     app.add_control("O", purple_range, case_sensitive=False)
-    default_range(app)
     while True:
+        globals()["{}_range".format(app.selected_background)](app)
         app.refresh()
 
 
