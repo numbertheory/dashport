@@ -28,12 +28,25 @@ def set_range(app, custom_range):
     app.print("A_BOLD", x=44, y=1, panel="layout.1")
     app.print("A_ITALIC", x=66, y=1, panel="layout.1")
     app.print("A_DIM", x=1, y=20, panel="layout.1")
+    app.print("A_UNDERLINE", x=22, y=20, panel="layout.1")
+    app.print("A_BLINK", x=44, y=20, panel="layout.1")
+    app.print("A_INVIS", x=66, y=20, panel="layout.1")
     for j in range(custom_range[0], custom_range[1]):
         app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 2, color=color_names[j], panel="layout.1")
-        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_REVERSE=True)
-        app.print(f"{color_names[j]}", x=44, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_BOLD=True)
-        app.print(f"{color_names[j]}", x=66, y=app.cursor_y + 2, color=color_names[j], panel="layout.1", A_ITALIC=True)
-        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 21, color=color_names[j], panel="layout.1", A_DIM=True)
+        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 2, color=color_names[j], panel="layout.1",
+                  A_REVERSE=True)
+        app.print(f"{color_names[j]}", x=44, y=app.cursor_y + 2, color=color_names[j], panel="layout.1",
+                  A_BOLD=True)
+        app.print(f"{color_names[j]}", x=66, y=app.cursor_y + 2, color=color_names[j], panel="layout.1",
+                  A_ITALIC=True)
+        app.print(f"{color_names[j]}", x=1, y=app.cursor_y + 21, color=color_names[j], panel="layout.1",
+                  A_DIM=True)
+        app.print(f"{color_names[j]}", x=22, y=app.cursor_y + 21, color=color_names[j], panel="layout.1",
+                  A_UNDERLINE=True)
+        app.print(f"{color_names[j]}", x=44, y=app.cursor_y + 21, color=color_names[j], panel="layout.1",
+                  A_BLINK=True)
+        app.print(f"{color_names[j]}", x=66, y=app.cursor_y + 21, color=color_names[j], panel="layout.1",
+                  A_INVIS=True)
         app.cursor_y += 1
 
 
@@ -126,21 +139,6 @@ def dashport(stdscr):
     app.selected_background = "default"
     app.add_control("KEY_DOWN", next_background)
     app.add_control("KEY_UP", prev_background)
-    app.add_control("A", default_range, case_sensitive=False)
-    app.add_control("B", white_range, case_sensitive=False)
-    app.add_control("C", black_range, case_sensitive=False)
-    app.add_control("D", silver_range, case_sensitive=False)
-    app.add_control("E", grey_range, case_sensitive=False)
-    app.add_control("F", red_range, case_sensitive=False)
-    app.add_control("G", lime_range, case_sensitive=False)
-    app.add_control("H", yellow_range, case_sensitive=False)
-    app.add_control("I", blue_range, case_sensitive=False)
-    app.add_control("J", fuchsia_range, case_sensitive=False)
-    app.add_control("K", aqua_range, case_sensitive=False)
-    app.add_control("L", maroon_range, case_sensitive=False)
-    app.add_control("M", green_range, case_sensitive=False)
-    app.add_control("N", navy_range, case_sensitive=False)
-    app.add_control("O", purple_range, case_sensitive=False)
     while True:
         globals()["{}_range".format(app.selected_background)](app)
         app.refresh()
