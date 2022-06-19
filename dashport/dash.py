@@ -42,6 +42,8 @@ class Dashport():
         self.bottom_title_row = self.rows - 1
         self.scroll_screen = False
         self.current_command = ""
+        self.buttons = dict()
+        self.selected_button = None
         if kwargs.get("scroll"):
             self.screen.scrollok(True)
             self.scroll_screen = True
@@ -70,11 +72,14 @@ class Dashport():
                                upper and lowercase characters of the
                                control_key to the same function
         """
-        if case_sensitive:
+        if isinstance(control_key, str):
+            if case_sensitive:
+                self.controls[control_key] = func
+            if not case_sensitive:
+                self.controls[control_key.upper()] = func
+                self.controls[control_key.lower()] = func
+        elif isinstance(control_key, int):
             self.controls[control_key] = func
-        if not case_sensitive:
-            self.controls[control_key.upper()] = func
-            self.controls[control_key.lower()] = func
 
     def control_keys(self):
         key_pressed = self.screen.getkey()
