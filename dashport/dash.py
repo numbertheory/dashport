@@ -281,14 +281,23 @@ class Dashport():
             for i in range(x, x + width):
                 self.screen.addstr(j, i, " ", cpi(self, color))
 
-    def background(self, color):
+    def background(self, color, **kwargs):
         """
         Fill the background with a color
         """
+        if kwargs.get("panel"):
+            panel = [x for x in kwargs.get("panel").split(".")
+                     if not x.isdigit()]
+            panel.append(int(kwargs.get("panel").split(".")[1]))
+        else:
+            panel = None
         for j in range(0 + self.title_offset,
                        self.rows - self.title_bottom_offset):
             for i in range(0, self.cols):
-                self.screen.insstr(j, i, " ", cpi(self, color))
+                if not isinstance(panel, list):
+                    self.screen.insstr(j, i, " ", cpi(self, color))
+                else:
+                    self.panels[panel[0]][panel[1]].insstr(j, i, " ", cpi(self, color))
 
     def layout(self, layout_name, **kwargs):
         self.panels["layout"] = getattr(layout, layout_name)(self, **kwargs)
