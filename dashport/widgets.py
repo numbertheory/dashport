@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+import curses.panel
+import curses
+from dashport.colors import color_pair_integer as cpi
 
 def title_bar(app, **kwargs):
     align = kwargs.get("align", "top")
@@ -24,13 +27,38 @@ def button(app, **kwargs):
     pos_y = kwargs.get("y")
     height = kwargs.get("height")
     width = kwargs.get("width")
-    border = kwargs.get("border", True)
-    if app.selected_button == button_name:
-        border_style = 3
+    text = kwargs.get("text", None)
+    color = kwargs.get("color", None)
+    if kwargs.get("selected"):
+        reverse = True
     else:
-        border_style = 0
+        reverse = False
     app.buttons[button_name] = app.panel(
-        height=height, length=width, y=pos_y, x=pos_x,
-        border=border,
-        border_style=border_style)
+        height=height, width=width, y=pos_y, x=pos_x,
+        border=False)
+    if color:
+        for j in range(0, height):
+            for i in range(0, width):
+                if reverse:
+                    app.buttons[button_name][0].insstr(j, i, " ", cpi(app, color) | curses.A_REVERSE)
+                else:
+                    app.buttons[button_name][0].insstr(j, i, " ", cpi(app, color))
+    if text:
+        if kwargs.get("h_align", "center") == "center":
+            text = text.center(width - 2, " ")
+        elif kwargs.get("h_align", "center") == "right":
+            text = text.rjust(width - 2)
+        elif kwargs.get("h_align", "center") == "left":
+            text = text.ljust(width - 2)
+        if kwargs.get("v_align", "center") == "center":
+            row = int(height / 2)
+        elif kwargs.get("v_align", "center") == "top":
+            row = 0
+        elif kwargs.get("v_align", "center") == "bottom":
+            row = height - 1
+        if reverse:
+            app.buttons[button_name][0].insstr(row, 0, text, cpi(app, color) | curses.A_REVERSE)
+        else:
+            app.buttons[button_name][0].insstr(row, 0, text, cpi(app, color))
+    curses.panel.update_panels()
     app.screen.refresh()

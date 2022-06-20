@@ -13,6 +13,6 @@ panel, and store it in the panels dictionary, without overriding the layout. You
 for layout when definining them, and the same method to refer to them when using `print` or `background`.
 
 ```
-app.panels["some_panel"] = app.panel(height=3, length=25, y=20, x=20, border=True, border_style=3)
+app.panels["some_panel"] = app.panel(height=3, width=25, y=20, x=20, border=True, border_style=3)
 app.print("this is another panel", x=1, y=1, panel="some_panel.0")
 ```

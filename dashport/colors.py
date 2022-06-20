@@ -52,6 +52,7 @@ def color_pair_integer(app, color_int=None):
         return curses.color_pair(color_int)
 
 
+
 def format_text(arguments):
     attributes = []
     for arg in list(arguments.keys()):

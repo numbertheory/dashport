@@ -13,7 +13,7 @@ def dashport(stdscr):
     app.add_control("q", quit, case_sensitive=False)
     app.layout("single_panel")
     app.print("This is the first panel in the layout.", x=5, y=2, panel="layout.0")
-    app.panels["some_panel"] = app.panel(height=3, length=25, y=20, x=20, border=True, border_style=3)
+    app.panels["some_panel"] = app.panel(height=3, width=25, y=20, x=20, border=True, border_style=3)
     app.print("this is another panel", x=1, y=1, panel="some_panel.0")
     while True:
         app.refresh()

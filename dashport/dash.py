@@ -43,7 +43,6 @@ class Dashport():
         self.scroll_screen = False
         self.current_command = ""
         self.buttons = dict()
-        self.selected_button = None
         if kwargs.get("scroll"):
             self.screen.scrollok(True)
             self.scroll_screen = True
@@ -86,16 +85,19 @@ class Dashport():
         if key_pressed and self.controls:
             if key_pressed in self.controls:
                 self.controls[key_pressed](self)
+        else:
+            self.refresh()
 
     def panel(self, **kwargs):
         height = kwargs.get("height")
-        length = kwargs.get("length")
+        width = kwargs.get("width")
         y = kwargs.get("y")
         x = kwargs.get("x")
         border = kwargs.get("border")
         border_style = kwargs.get("border_style", 0)
         enable_scroll = kwargs.get("scroll", False)
-        win = curses.newwin(height, length, y + self.title_offset, x)
+        border_color = kwargs.get("border_color")
+        win = curses.newwin(height, width, y + self.title_offset, x)
         if enable_scroll:
             win.scrollok(True)
             if border:
@@ -103,7 +105,7 @@ class Dashport():
             else:
                 win.setscrreg(0, height - 1)
         if border:
-            borders.style(win, border_style)
+            borders.style(self, win, border_style, color=border_color)
         panel = curses.panel.new_panel(win)
         self.panel_border.append(border)
         self.panel_border_styles.append(border_style)
@@ -197,7 +199,7 @@ class Dashport():
                 | format_text_list[16]
                 | format_text_list[17])
             if self.panel_border[panel[1]]:
-                borders.style(self.panels[panel[0]][panel[1]],
+                borders.style(self, self.panels[panel[0]][panel[1]],
                               self.panel_border_styles[panel[1]])
             curses.panel.update_panels()
             self.screen.refresh()

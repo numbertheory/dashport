@@ -41,7 +41,7 @@ def user_prompt(app, **kwargs):
 
     if not app.panels.get("prompt"):
         win1, panel1 = app.panel(height=kwargs.get("height", 1),
-                                 length=kwargs.get("length", 20),
+                                 width=kwargs.get("width", 20),
                                  y=cursor_y, x=cursor_x)
         app.panels["prompt"] = [win1, panel1]
         app.panel_coords.append([0, 0])
