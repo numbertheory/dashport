@@ -29,6 +29,12 @@ def button(app, **kwargs):
     width = kwargs.get("width")
     text = kwargs.get("text", None)
     color = kwargs.get("color", None)
+    action = kwargs.get("action", None)
+    action_key = kwargs.get("action_key", None)
+    if not action_key:
+        action_keys = kwargs.get("action_keys", [])
+    else:
+        action_keys = []
     if kwargs.get("selected"):
         reverse = True
     else:
@@ -41,7 +47,20 @@ def button(app, **kwargs):
             for i in range(0, width):
                 if reverse:
                     app.buttons[button_name][0].insstr(j, i, " ", cpi(app, color) | curses.A_REVERSE)
+                    if action and (action_key or action_keys):
+                        if action_key:
+                            app.add_control(action_key, action, case_sensitive=False, button_control=True)
+                        elif action_keys != []:
+                            for add_action_key in action_keys:
+                                app.add_control(add_action_key, action, case_sensitive=False, button_control=True)
+
                 else:
+                    if action and (action_key or action_keys):
+                        if action_key:
+                            app.controls.pop(action_key, None)
+                        elif action_keys != []:
+                            for remove_action_key in action_keys:
+                                app.controls.pop(remove_action_key, None)
                     app.buttons[button_name][0].insstr(j, i, " ", cpi(app, color))
     if text:
         if kwargs.get("h_align", "center") == "center":

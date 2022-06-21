@@ -29,7 +29,7 @@ class Dashport():
         self.curs_set(kwargs.get("cursor", 0))
         self.rows, self.cols = self.screen.getmaxyx()
         self.window = curses.newwin(self.rows + 1, self.cols)
-        self.controls = dict()
+        self.controls = {"button": {}}
         self.cursor_x = 0
         self.cursor_y = 0
         self.panels = dict()
@@ -60,7 +60,7 @@ class Dashport():
     def curs_set(self, set_cursor):
         curses.curs_set(set_cursor)
 
-    def add_control(self, control_key, func, case_sensitive=True):
+    def add_control(self, control_key, func, case_sensitive=True, button_control=False):
         """
         Binds a keyboard key to a function in the program.
         :param control_key: The string of the key that will be
@@ -70,8 +70,14 @@ class Dashport():
         :param case_sensitive: If set to ``False`` this will add both
                                upper and lowercase characters of the
                                control_key to the same function
+        :param button_control: If set to ``True`` this will add the control to the "buttons"
+                               portion of the self.controls dictionary. Useful for when multiple
+                               functions use the same control keys (like KEY_ENTER or \\n), but based 
+                               on a button being selected.
         """
-        if isinstance(control_key, str):
+        if button_control:
+            self.controls["button"][control_key] = func
+        elif isinstance(control_key, str):
             if case_sensitive:
                 self.controls[control_key] = func
             if not case_sensitive:
@@ -85,6 +91,8 @@ class Dashport():
         if key_pressed and self.controls:
             if key_pressed in self.controls:
                 self.controls[key_pressed](self)
+            elif key_pressed in self.controls["button"]:
+                self.controls["button"][key_pressed](self)
         else:
             self.refresh()
 
