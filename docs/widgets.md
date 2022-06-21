@@ -2,9 +2,7 @@
 
 ## title_bar
 
-The title bar widget occupies one row on either the top or bottom of the screen to display persistent information. The title bar does
-take away one row from the screen, so even if a `print` command designates a spot where the title bar is, those coordinates will not
-overlap with the title_bar.
+The title bar widget occupies one row on either the top or bottom of the screen to display persistent information. The title bar does take away one row from the screen, so even if a `print` command designates a spot where the title bar is, those coordinates will not overlap with the title_bar.
 
 Example:
 
