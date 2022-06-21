@@ -23,7 +23,7 @@ def dashport(stdscr):
             chr(boxes.html("double_horizontal")),      # top horizontal
             chr(boxes.html("double_horizontal"))       # bottom horizontal
     ]
-    custom_border(app.panels["layout"][0], border_characters)
+    custom_border(app, app.panels["layout"][0], characters=border_characters)
     app.print("panel 0", x=5, y=2, panel="layout.0")
     app.print(f"Rows: {app.panel_dimensions[0][0]}",
               x=5, y=3, panel="layout.0")
