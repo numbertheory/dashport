@@ -18,6 +18,6 @@ setup(
     url='https://github.com/numbertheory/dashport',
     license_files=('LICENSE'),
     packages=find_packages(exclude=('tests', 'docs', 'examples')),
-    package_data={'dashport': ['resources/*.json']},
+    package_data={'dashport/resources': ['resources/*.json']},
     include_package_data=True
 )

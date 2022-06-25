@@ -1,9 +1,11 @@
 #! /usr/bin/env python3
 import json
+import importlib.resources
 
-with (open('dashport/resources/box_drawing_table.json')) as data:
+
+with importlib.resources.open_text("dashport.resources", "box_drawing_table.json") as data:
     box_drawing = json.load(data)
-with (open('dashport/resources/block_elements_table.json')) as data:
+with importlib.resources.open_text("dashport.resources", "block_elements_table.json") as data:
     block_elements = json.load(data)
 
 
