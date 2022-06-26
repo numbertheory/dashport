@@ -64,7 +64,7 @@ def button(app, **kwargs):
                     app.buttons[button_name][0].insstr(j, i, " ", cpi(app, color))
     if text:
         if kwargs.get("h_align", "center") == "center":
-            text = text.center(width - 2, " ")
+            text = text.center(width, " ")
         elif kwargs.get("h_align", "center") == "right":
             text = text.rjust(width - 2)
         elif kwargs.get("h_align", "center") == "left":
