@@ -111,8 +111,8 @@ def quadrants(app, **kwargs):
 
 
 def three_panels_vert(app, **kwargs):
-    split_rows = int(app.rows / 2) - app.title_offset
-    split_cols = int(app.cols / 2)
+    split_rows = kwargs.get("split_rows", int(app.rows / 2) - app.title_offset)
+    split_cols = kwargs.get("split_cols", int(app.cols / 2))
     long_side = kwargs.get("long_side", "right")
     border = kwargs.get("border", False)
     border_styles = kwargs.get("border_styles", [0, 0, 0])
