@@ -7,9 +7,11 @@ def single_panel(app, **kwargs):
     border_styles = kwargs.get("border_styles", [0])
     height = kwargs.get("height", app.rows - app.title_offset)
     width = kwargs.get("width", app.cols)
+    x = kwargs.get("x", 0)
+    y = kwargs.get("y", 0)
     if isinstance(border, bool):
         border = [border]
-    win1, panel1 = app.panel(height=height, width=width, y=0, x=0,
+    win1, panel1 = app.panel(height=height, width=width, y=y, x=x,
                              scroll=kwargs.get("scroll", False),
                              border=border[0],
                              border_style=border_styles[0])
