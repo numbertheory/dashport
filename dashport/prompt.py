@@ -26,7 +26,10 @@ def user_prompt(app, **kwargs):
             app.user_prompt_position += 1
         if x == backspace_key() and len(command_line_entered) > 0:
             try:
-                command_line_entered.pop(app.user_prompt_position - 1)
+                if platform.system().lower() == "linux":
+                    command_line_entered.pop(app.user_prompt_position - 2)
+                else:
+                    command_line_entered.pop(app.user_prompt_position - 1)
             except IndexError:
                 pass
             app.user_prompt_position -= 1
