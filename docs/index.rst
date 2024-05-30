@@ -16,6 +16,8 @@ Dashport
    colors
    strings
    layouts
+   buttons
+   panels
    widgets
 
 .. toctree::
