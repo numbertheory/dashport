@@ -58,7 +58,7 @@ By using `None` as a border style, the built-in borders are not used, and the pr
 
 Finally, there is also a `custom_border` function available in Dashport Borders which makes custom borders using unicode characters a bit more flexible than what the native curses method allows. Borders in the native curses method cannot represent a lot of unicode characters, due to the way the characters are handled in ncurses. Using dashport, you can set a list of 8 characters to represent the upper left, upper right, lower left, lower right, left vertical, right vertical, top horizontal, and bottom horizontal characters and apply that to any panel on the screen.
 
-In the example below (from the [custom_borders.py](examples/layouts/custom_borders,py) example), the border_characters list is using the import of BoxDrawing, aliased as boxes, to get the exact characters needed, and then passing that, with the panel, into the `custom_border` function.
+In the example below (from the [custom_borders.py](../examples/layouts/custom_borders.py) example), the border_characters list is using the import of BoxDrawing, aliased as boxes, to get the exact characters needed, and then passing that, with the panel, into the `custom_border` function.
 
 ```
 #!/usr/bin/env python3
